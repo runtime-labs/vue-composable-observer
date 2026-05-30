@@ -21,6 +21,6 @@ export function initComposableObserver() {
 
   window.__COMPOSABLE_OBSERVER__ = {
     getInstances,
-    subscribe
+    subscribe,
   }
 }

@@ -5,12 +5,18 @@ const composables = new Map<string, ComposableInstance>()
 
 export function registerInstance(record: ComposableInstance) {
   composables.set(record.id, record)
-  notifySubscribers()
+  notifySubscribers({
+    type: 'instance:registered',
+    instanceId: record.id,
+  })
 }
 
 export function unregisterInstance(id: string) {
   composables.delete(id)
-  notifySubscribers()
+  notifySubscribers({
+    type: 'instance:unregistered',
+    instanceId: id,
+  })
 }
 
 export function getInstances() {
@@ -19,14 +25,20 @@ export function getInstances() {
 
 export function clearInstances() {
   composables.clear()
-  notifySubscribers()
+  notifySubscribers({
+    type: 'instance:cleared',
+  })
 }
 
 export function updateInstanceState(id: string, state: unknown) {
   const instance = composables.get(id)
   if (instance) {
     instance.state = state
-    notifySubscribers()
+    notifySubscribers({
+      type: 'instance:stateUpdated',
+      instanceId: id,
+      state,
+    })
   }
 }
 
@@ -39,5 +51,9 @@ export function registerDependency(instanceId: string, dependencyId: string) {
   }
 
   instance.dependencyIds.add(dependencyId)
-  notifySubscribers()
+  notifySubscribers({
+    type: 'instance:dependencyRegistered',
+    instanceId,
+    dependencyId,
+  })
 }
