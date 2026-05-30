@@ -3,6 +3,8 @@ import { registerDependency } from '../registry'
 import { getCurrentComposable, runWithComposable } from '../scope'
 import { getCurrentScope, onScopeDispose } from 'vue'
 import { createComposableRuntime } from './create-composable-runtime'
+import { trackStateChanges } from './track-state-changes'
+import { notifySubscribers } from '../subscribers'
 
 export function trackComposable<TArgs extends unknown[], TResult>(
   name: string,
@@ -27,6 +29,17 @@ export function trackComposable<TArgs extends unknown[], TResult>(
 
     runtime.updateState(state)
 
+    const stopTracking = trackStateChanges(
+      state,
+      () => {
+        notifySubscribers({
+          type: 'instance:stateUpdated',
+          instanceId: runtime.id,
+          state,
+        })
+      },
+    )
+
     if (isDev()) {
       console.log(`Registered composable instance: ${runtime.instance.name} (ID: ${runtime.instance.id})`)
     }
@@ -37,6 +50,7 @@ export function trackComposable<TArgs extends unknown[], TResult>(
           console.log(`Unregistering composable instance: ${runtime.instance.name} (ID: ${runtime.instance.id})`)
         }
 
+        stopTracking()
         runtime.dispose()
       })
     } else {
