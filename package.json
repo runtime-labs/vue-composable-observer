@@ -4,12 +4,12 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
     "core:build": "pnpm --filter @goranton/vue-composable-observer-core run build",
     "core:test": "pnpm --filter @goranton/vue-composable-observer-core run test",
     "playground:dev": "pnpm --filter @goranton/vue-composable-observer-playground run dev",
     "lint": "eslint .",
-    "lint:fix": "eslint . --fix"
+    "lint:fix": "eslint . --fix",
+    "test": "vitest run"
   },
   "keywords": [],
   "author": "",
@@ -28,6 +28,7 @@
     "eslint": "^10.4.0",
     "typescript": "^6.0.3",
     "typescript-eslint": "^8.60.0",
-    "unbuild": "^3.6.1"
+    "unbuild": "^3.6.1",
+    "vitest": "^4.1.7"
   }
 }

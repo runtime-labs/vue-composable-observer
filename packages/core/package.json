@@ -6,14 +6,12 @@
   },
   "scripts": {
     "build": "unbuild",
-    "dev": "unbuild --stub",
-    "test": "vitest run"
+    "dev": "unbuild --stub"
   },
   "peerDependencies": {
     "vue": "^3.5.0"
   },
   "devDependencies": {
-    "vitest": "^4.1.7",
     "vue": "^3.5.0"
   }
 }
