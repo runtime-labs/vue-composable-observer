@@ -1,116 +1,71 @@
+import { effectScope } from 'vue'
 import { describe, expect, it } from 'vitest'
 
-import {
-  clearInstances,
-  getInstances,
-  trackComposable,
-} from '../src'
-import { effectScope } from 'vue'
+import { clearInstances, getInstances, trackComposable } from '../src'
 
 describe('dependencies', () => {
   it('tracks nested composable dependencies', () => {
     clearInstances()
 
-    const useAuth = trackComposable(
-      'useAuth',
-      () => ({}),
-    )
+    const useAuth = trackComposable('useAuth', () => ({}))
 
-    const useProducts = trackComposable(
-      'useProducts',
-      () => {
-        const auth = useAuth()
+    const useProducts = trackComposable('useProducts', () => {
+      const auth = useAuth()
 
-        return { auth }
-      },
-    )
+      return { auth }
+    })
 
-    const { instance: products } = useProducts()
+    useProducts()
 
-    const auth = getInstances().find(
-      item => item.name === 'useAuth',
-    )
+    const products = getInstances().find(item => item.name === 'useProducts')
+    const auth = getInstances().find(item => item.name === 'useAuth')
 
-    const updatedProducts = getInstances().find(
-      item => item.id === products.id,
-    )
-
+    expect(products).toBeDefined()
     expect(auth).toBeDefined()
-
-    expect(
-      updatedProducts?.dependencyIds?.has(auth!.id),
-    ).toBe(true)
+    expect(products?.dependencyIds?.has(auth!.id)).toBe(true)
   })
 
   it('tracks deep dependency chains', () => {
     clearInstances()
 
-    const useStorage = trackComposable(
-      'useStorage',
-      () => ({}),
-    )
+    const useStorage = trackComposable('useStorage', () => ({}))
 
-    const useAuth = trackComposable(
-      'useAuth',
-      () => {
-        useStorage()
+    const useAuth = trackComposable('useAuth', () => {
+      useStorage()
 
-        return {}
-      },
-    )
+      return {}
+    })
 
-    const useProducts = trackComposable(
-      'useProducts',
-      () => {
-        useAuth()
+    const useProducts = trackComposable('useProducts', () => {
+      useAuth()
 
-        return {}
-      },
-    )
+      return {}
+    })
 
     useProducts()
 
-    const products = getInstances().find(
-      item => item.name === 'useProducts',
-    )
-
-    const auth = getInstances().find(
-      item => item.name === 'useAuth',
-    )
-
-    const storage = getInstances().find(
-      item => item.name === 'useStorage',
-    )
+    const products = getInstances().find(item => item.name === 'useProducts')
+    const auth = getInstances().find(item => item.name === 'useAuth')
+    const storage = getInstances().find(item => item.name === 'useStorage')
 
     expect(products).toBeDefined()
     expect(auth).toBeDefined()
     expect(storage).toBeDefined()
 
-    expect(
-      products?.dependencyIds?.has(auth!.id),
-    ).toBe(true)
-
-    expect(
-      auth?.dependencyIds?.has(storage!.id),
-    ).toBe(true)
+    expect(products?.dependencyIds?.has(auth!.id)).toBe(true)
+    expect(auth?.dependencyIds?.has(storage!.id)).toBe(true)
   })
 
   it('removes dependency graph when scope is disposed', () => {
     clearInstances()
 
-    const useAuth = trackComposable(
-      'useAuth',
-      () => ({}),
-    )
+    const useAuth = trackComposable('useAuth', () => ({}))
 
-    const useProducts = trackComposable(
-      'useProducts',
-      () => {
-        useAuth()
+    const useProducts = trackComposable('useProducts', () => {
+      useAuth()
 
-        return {}
-      },
-    )
+      return {}
+    })
 
     const scope = effectScope()
 
@@ -128,28 +83,20 @@ describe('dependencies', () => {
   it('tracks multiple instances of the same dependency', () => {
     clearInstances()
 
-    const useAuth = trackComposable(
-      'useAuth',
-      () => ({}),
-    )
+    const useAuth = trackComposable('useAuth', () => ({}))
 
-    const useProducts = trackComposable(
-      'useProducts',
-      () => {
-        useAuth()
-        useAuth()
+    const useProducts = trackComposable('useProducts', () => {
+      useAuth()
+      useAuth()
 
-        return {}
-      },
-    )
+      return {}
+    })
 
-    const { instance: products } = useProducts()
+    useProducts()
 
-    const updatedProducts = getInstances().find(
-      item => item.id === products.id,
-    )
+    const products = getInstances().find(item => item.name === 'useProducts')
 
-    expect(updatedProducts).toBeDefined()
-    expect(updatedProducts?.dependencyIds?.size).toBe(2)
+    expect(products).toBeDefined()
+    expect(products?.dependencyIds?.size).toBe(2)
   })
 })
