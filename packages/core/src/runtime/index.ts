@@ -1,5 +1,4 @@
 export { initComposableObserver } from './init'
-export { getInstances, registerInstance, unregisterInstance } from './registry'
+export { getInstances, registerInstance, unregisterInstance, clearInstances } from './registry'
 export { createInstance } from './create-instance'
-export { registerComposable } from './register-composable'
 export { trackComposable } from './track-composable'

@@ -13,3 +13,7 @@ export function unregisterInstance(id: string) {
 export function getInstances() {
   return [...composables.values()]
 }
+
+export function clearInstances() {
+  composables.clear()
+}
