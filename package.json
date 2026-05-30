@@ -7,7 +7,9 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "core:build": "pnpm --filter @goranton/vue-composable-observer-core run build",
     "core:test": "pnpm --filter @goranton/vue-composable-observer-core run test",
-    "playground:dev": "pnpm --filter @goranton/vue-composable-observer-playground run dev"
+    "playground:dev": "pnpm --filter @goranton/vue-composable-observer-playground run dev",
+    "lint": "eslint .",
+    "lint:fix": "eslint . --fix"
   },
   "keywords": [],
   "author": "",
@@ -21,7 +23,11 @@
   },
   "type": "module",
   "devDependencies": {
+    "@eslint/js": "^10.0.1",
+    "@stylistic/eslint-plugin": "^5.10.0",
+    "eslint": "^10.4.0",
     "typescript": "^6.0.3",
+    "typescript-eslint": "^8.60.0",
     "unbuild": "^3.6.1"
   }
 }

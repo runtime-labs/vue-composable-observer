@@ -1,4 +1,4 @@
-import { ComposableInstance } from "./types"
+import { type ComposableInstance } from './types'
 
 const composables = new Map<string, ComposableInstance>()
 

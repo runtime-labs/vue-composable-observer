@@ -1,3 +1,3 @@
 export function createInstanceId() {
-    return crypto.randomUUID()
+  return crypto.randomUUID()
 }
