@@ -1,35 +1,8 @@
 <script setup lang="ts">
 import ComposableObserver from './components/ComposableObserver.vue'
-import { trackComposable } from '@goranton/vue-composable-observer-core'
-import { ref, onMounted } from 'vue'
+import { useCounter } from './useCounter'
 
-const useCounter = trackComposable(
-  'useCounter',
-  () => {
-    const counter = ref(0)
-
-    const { count } = useDeep()
-
-    return {
-      count,
-      counter,
-    }
-  },
-)
-
-const useDeep = trackComposable(
-  'useDeep',
-  () => {
-    const count = ref(0)
-
-    return {
-      count,
-    }
-  },
-)
-
-const {count} = useCounter()
-
+const { count } = useCounter()
 </script>
 
 <template>

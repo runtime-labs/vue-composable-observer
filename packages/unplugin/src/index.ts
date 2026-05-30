@@ -1,1 +1,1 @@
-export { findComposables, transformComposable } from './transform'
+export { VueComposableObserver } from './unplugin'
