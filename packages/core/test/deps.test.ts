@@ -5,6 +5,7 @@ import {
   getInstances,
   trackComposable,
 } from '../src'
+import { effectScope } from 'vue'
 
 describe('dependencies', () => {
   it('tracks nested composable dependencies', () => {
@@ -92,5 +93,63 @@ describe('dependencies', () => {
     expect(
       auth?.dependencyIds?.has(storage!.id),
     ).toBe(true)
+  })
+
+  it('removes dependency graph when scope is disposed', () => {
+    clearInstances()
+
+    const useAuth = trackComposable(
+      'useAuth',
+      () => ({}),
+    )
+
+    const useProducts = trackComposable(
+      'useProducts',
+      () => {
+        useAuth()
+
+        return {}
+      },
+    )
+
+    const scope = effectScope()
+
+    scope.run(() => {
+      useProducts()
+    })
+
+    expect(getInstances()).toHaveLength(2)
+
+    scope.stop()
+
+    expect(getInstances()).toHaveLength(0)
+  })
+
+  it('tracks multiple instances of the same dependency', () => {
+    clearInstances()
+
+    const useAuth = trackComposable(
+      'useAuth',
+      () => ({}),
+    )
+
+    const useProducts = trackComposable(
+      'useProducts',
+      () => {
+        useAuth()
+        useAuth()
+
+        return {}
+      },
+    )
+
+    const { instance: products } = useProducts()
+
+    const updatedProducts = getInstances().find(
+      item => item.id === products.id,
+    )
+
+    expect(updatedProducts).toBeDefined()
+    expect(updatedProducts?.dependencyIds?.size).toBe(2)
   })
 })
