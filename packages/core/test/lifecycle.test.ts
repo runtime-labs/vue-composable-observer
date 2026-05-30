@@ -1,9 +1,10 @@
-import { describe, expect, it } from 'vitest'
-import { effectScope } from 'vue'
+import { describe, expect, it, vi } from 'vitest'
+import { effectScope, nextTick, ref } from 'vue'
 
 import {
   clearInstances,
   getInstances,
+  subscribe,
   trackComposable,
 } from '../src'
 
@@ -44,5 +45,71 @@ describe('composable lifecycle', () => {
     scope.stop()
 
     expect(getInstances()).toHaveLength(0)
+  })
+
+  it('emits state update events', async () => {
+    clearInstances()
+
+    const count = ref(0)
+
+    const useCounter = trackComposable(
+      'useCounter',
+      () => ({
+        count,
+      }),
+    )
+
+    const listener = vi.fn()
+
+    const unsubscribe = subscribe(listener)
+
+    useCounter()
+
+    count.value++
+
+    await nextTick()
+
+    expect(listener).toHaveBeenCalledWith(
+      expect.objectContaining({
+        type: 'instance:stateUpdated',
+      }),
+    )
+
+    unsubscribe()
+  })
+
+  it('stops tracking state changes after scope dispose', async () => {
+    clearInstances()
+
+    const count = ref(0)
+
+    const useCounter = trackComposable(
+      'useCounter',
+      () => ({
+        count,
+      }),
+    )
+
+    const listener = vi.fn()
+
+    const unsubscribe = subscribe(listener)
+
+    const scope = effectScope()
+
+    scope.run(() => {
+      useCounter()
+    })
+
+    scope.stop()
+
+    listener.mockClear()
+
+    count.value++
+
+    await nextTick()
+
+    expect(listener).not.toHaveBeenCalled()
+
+    unsubscribe()
   })
 })
