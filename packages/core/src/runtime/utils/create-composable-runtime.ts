@@ -1,6 +1,5 @@
 import { registerInstance, unregisterInstance, updateInstanceState } from '../registry'
-import { createInstance } from './create-instance'
-import { createInstanceId } from './create-instance-id'
+import { createInstance, createInstanceId } from './create-instance'
 
 export function createComposableRuntime(
   name: string,
