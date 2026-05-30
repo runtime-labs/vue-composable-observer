@@ -140,4 +140,31 @@ export function useCounter<T>() {
       'function useCounter<T>()',
     )
   })
+
+  it('finds exported arrow composables', () => {
+  const code = `
+export const useCounter = () => {
+  return {}
+}
+`
+
+  const composables = findComposables(code)
+
+  expect(composables).toHaveLength(1)
+  expect(composables[0]?.name).toBe('useCounter')
+})
+
+it('transforms exported arrow composables', () => {
+  const code = `
+export const useCounter = () => {
+  return {}
+}
+`
+
+  const transformed = transformComposable(code)
+
+  expect(transformed).toContain(
+    "trackComposable('useCounter'",
+  )
+})
 })

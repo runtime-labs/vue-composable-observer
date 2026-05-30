@@ -30,6 +30,20 @@ export function findComposables(
         functionEnd: declaration.end || 0,
       })
     }
+
+    if (declaration?.type === 'VariableDeclaration') {
+      for (const declarator of declaration.declarations) {
+        if (declarator.id.type === 'Identifier' && declarator.id.name.startsWith('use')) {
+          foundComposables.push({
+            name: declarator.id.name,
+            exportStart: node.start || 0,
+            exportEnd: node.end || 0,
+            functionStart: declarator.start || 0,
+            functionEnd: declarator.end || 0,
+          })
+        }
+      }
+    }
   }
 
   return foundComposables
