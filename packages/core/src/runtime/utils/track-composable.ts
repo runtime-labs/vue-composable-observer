@@ -1,7 +1,7 @@
 import { isDev } from "../../utils"
 import { createInstance } from "./create-instance"
-import { getCurrentOwner } from "../owner"
 import { registerInstance } from "../registry"
+import { getCurrentOwner } from "../scope"
 
 export function trackComposable<T>(
     name: string,
