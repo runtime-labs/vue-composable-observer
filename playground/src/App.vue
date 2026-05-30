@@ -1,10 +1,27 @@
 <script setup lang="ts">
-import HelloWorld from './components/HelloWorld.vue'
-import { getCurrentScope } from 'vue'
+import ComposableObserver from './components/ComposableObserver.vue'
+import { trackComposable } from '@goranton/vue-composable-observer-core'
+import { ref, onMounted } from 'vue'
 
-console.log('Current scope:', getCurrentScope())
+const useCounter = trackComposable(
+  'useCounter',
+  () => {
+    const count = ref(0)
+
+    return {
+      count,
+    }
+  },
+)
+
+const {count} = useCounter()
+
 </script>
 
 <template>
-  <HelloWorld />
+  <ComposableObserver />
+
+  <h1>Counter:  {{ count }}</h1>
+  <button @click="count++">Increment</button>
+
 </template>
