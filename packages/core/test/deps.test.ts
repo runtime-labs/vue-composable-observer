@@ -40,4 +40,57 @@ describe('dependencies', () => {
             updatedProducts?.dependencyIds?.has(auth!.id)
         ).toBe(true)
     })
+
+    it('tracks deep dependency chains', () => {
+        clearInstances()
+
+        const useStorage = trackComposable(
+            'useStorage',
+            () => ({})
+        )
+
+        const useAuth = trackComposable(
+            'useAuth',
+            () => {
+                useStorage()
+
+                return {}
+            }
+        )
+
+        const useProducts = trackComposable(
+            'useProducts',
+            () => {
+                useAuth()
+
+                return {}
+            }
+        )
+
+        useProducts()
+
+        const products = getInstances().find(
+            item => item.name === 'useProducts',
+        )
+
+        const auth = getInstances().find(
+            item => item.name === 'useAuth',
+        )
+
+        const storage = getInstances().find(
+            item => item.name === 'useStorage',
+        )
+
+        expect(products).toBeDefined()
+        expect(auth).toBeDefined()
+        expect(storage).toBeDefined()
+
+        expect(
+            products?.dependencyIds?.has(auth!.id)
+        ).toBe(true)
+
+        expect(
+            auth?.dependencyIds?.has(storage!.id)
+        ).toBe(true)
+    })
 })
