@@ -2,9 +2,16 @@
   "name": "@goranton/vue-composable-observer-unplugin",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "./dist/index.mjs",
+  "types": "./dist/index.d.ts",
+  "files": [
+    "dist"
+  ],
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "build": "unbuild"
+  },
+  "exports": {
+    ".": "./dist/index.mjs"
   },
   "keywords": [],
   "author": "",
@@ -14,6 +21,10 @@
     "@babel/parser": "^7.29.7",
     "magic-string": "^0.30.21",
     "magic-string-ast": "^2.0.0",
+    "unplugin": "^3.0.0",
     "unplugin-ast": "^0.17.0"
+  },
+  "devDependencies": {
+    "unbuild": "^3.6.1"
   }
 }

@@ -246,15 +246,25 @@ importers:
       magic-string-ast:
         specifier: ^2.0.0
         version: 2.0.0
+      unplugin:
+        specifier: ^3.0.0
+        version: 3.0.0
       unplugin-ast:
         specifier: ^0.17.0
         version: 0.17.0
+    devDependencies:
+      unbuild:
+        specifier: ^3.6.1
+        version: 3.6.1(typescript@6.0.3)(vue-tsc@3.3.2(typescript@6.0.3))(vue@3.5.35(typescript@6.0.3))
 
   playground:
     dependencies:
       '@goranton/vue-composable-observer-core':
         specifier: workspace:*
         version: link:../packages/core
+      '@goranton/vue-composable-observer-unplugin':
+        specifier: workspace:*
+        version: link:../packages/unplugin
       vue:
         specifier: ^3.5.34
         version: 3.5.35(typescript@6.0.3)
