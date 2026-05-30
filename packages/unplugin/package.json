@@ -19,6 +19,7 @@
   "type": "module",
   "dependencies": {
     "@babel/parser": "^7.29.7",
+    "@rollup/pluginutils": "^5.4.0",
     "magic-string": "^0.30.21",
     "magic-string-ast": "^2.0.0",
     "unplugin": "^3.0.0",

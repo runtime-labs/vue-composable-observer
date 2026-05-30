@@ -1,19 +1,33 @@
 import { createUnplugin } from 'unplugin'
+import { createFilter } from '@rollup/pluginutils'
 
 import { transformComposable } from './transform'
+import { type PluginOptions } from './types'
 
-export const VueComposableObserver = createUnplugin(() => {
-  return {
-    name: 'vue-composable-observer',
-    transform(code, id) {
-      if (
-        !id.endsWith('.ts')
+export const VueComposableObserver = createUnplugin(
+  (options: PluginOptions = {}) => {
+    const filter = createFilter(
+      options.include ?? [
+        /\.[jt]s$/,
+      ],
+      options.exclude,
+    )
+
+    return {
+      name: 'vue-composable-observer',
+      transform(code, id) {
+        if (!filter(id)) {
+          return
+        }
+
+        if (
+          !id.endsWith('.ts')
         && !id.endsWith('.js')
-      ) {
-        return
-      }
+        ) {
+          return
+        }
 
-      return transformComposable(code)
-    },
-  }
-})
+        return transformComposable(code)
+      },
+    }
+  })

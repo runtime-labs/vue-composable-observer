@@ -1,8 +1,8 @@
 <script setup lang="ts">
 import ComposableObserver from './components/ComposableObserver.vue'
-import { useCounter } from './useCounter'
+import { useDeepCounter } from './useCounter'
 
-const { count } = useCounter()
+const { nested: { count } } = useDeepCounter()
 </script>
 
 <template>
