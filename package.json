@@ -5,7 +5,8 @@
   "main": "index.js",
   "scripts": {
     "core:build": "pnpm --filter @goranton/vue-composable-observer-core run build",
-    "plugin:build": "pnpm --filter @goranton/vue-composable-observer-unplugin run build",
+    "plugin:unplugin:build": "pnpm --filter @goranton/vue-composable-observer-unplugin run build",
+    "plugin:vue:build": "pnpm --filter @goranton/vue-composable-observer-vue run build",
     "playground:dev": "pnpm --filter @goranton/vue-composable-observer-playground run dev",
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",

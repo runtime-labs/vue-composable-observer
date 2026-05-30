@@ -1,0 +1,1 @@
+export { ComposableObserverVuePlugin } from './plugin'
