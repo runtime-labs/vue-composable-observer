@@ -51,6 +51,7 @@ export function findComposables(
 
 export function transformComposable(
   code: string,
+  options: { importPrefix: string },
 ): string {
   const composables = findComposables(code)
 
@@ -62,6 +63,9 @@ export function transformComposable(
 
   composables.sort((a, b) => a.functionStart - b.functionStart)
 
+  const importPrefix = options?.importPrefix || '__ob_'
+  const importName = `${importPrefix}trackComposable`
+
   for (const composable of composables) {
     const original = code.slice(composable.functionStart, composable.functionEnd)
 
@@ -69,7 +73,7 @@ export function transformComposable(
       composable.exportStart,
       composable.exportEnd,
       `
-export const ${composable.name} = __ob_trackComposable('${composable.name}',
+export const ${composable.name} = ${importName}('${composable.name}',
     ${original.replace(
       `export function ${composable.name}`,
       `function ${composable.name}`,
@@ -81,7 +85,7 @@ export const ${composable.name} = __ob_trackComposable('${composable.name}',
 
   if (!code.includes('@goranton/vue-composable-observer-core')) {
     s.prepend(
-      'import { trackComposable as __ob_trackComposable } from \'@goranton/vue-composable-observer-core\'\n',
+      `import { trackComposable as ${importName} } from \'@goranton/vue-composable-observer-core\'\n`,
     )
   }
 

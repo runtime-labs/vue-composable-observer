@@ -11,6 +11,7 @@ export interface FoundComposable {
 }
 
 export interface PluginOptions {
+    importPrefix?: string
   include?: FilterPattern
   exclude?: FilterPattern
 }
