@@ -24,8 +24,10 @@ export function findComposables(
     if (declaration?.type === 'FunctionDeclaration' && declaration.id?.name.startsWith('use')) {
       foundComposables.push({
         name: declaration.id.name,
-        start: node.start || 0,
-        end: node.end || 0,
+        exportStart: node.start || 0,
+        exportEnd: node.end || 0,
+        functionStart: declaration.start || 0,
+        functionEnd: declaration.end || 0,
       })
     }
   }
@@ -44,20 +46,16 @@ export function transformComposable(
 
   const s = new MagicString(code)
 
-  const updates: { start: number; end: number; content: string }[] = []
-
-  function storeUpdate(start: number, end: number, content: string) {
-    updates.push({ start, end, content })
-  }
+  composables.sort((a, b) => a.functionStart - b.functionStart)
 
   for (const composable of composables) {
-    const original = code.slice(composable.start, composable.end)
+    const original = code.slice(composable.functionStart, composable.functionEnd)
 
-    storeUpdate(
-      composable.start,
-      composable.end,
+    s.overwrite(
+      composable.exportStart,
+      composable.exportEnd,
       `
-export const ${composable.name} = trackComposable('${composable.name}',
+export const ${composable.name} = __ob_trackComposable('${composable.name}',
     ${original.replace(
       `export function ${composable.name}`,
       `function ${composable.name}`,
@@ -67,13 +65,12 @@ export const ${composable.name} = trackComposable('${composable.name}',
     )
   }
 
-  for (const update of updates) {
-    s.overwrite(update.start, update.end, update.content)
+  if (!code.includes('@goranton/vue-composable-observer-core')) {
+    s.prepend(
+      'import { trackComposable as __ob_trackComposable } from \'@goranton/vue-composable-observer-core\'\n',
+    )
   }
 
-  s.prepend(
-    'import { trackComposable } from \'@goranton/vue-composable-observer-core\'\n',
-  )
 
   return s.toString()
 }

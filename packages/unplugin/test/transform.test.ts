@@ -13,8 +13,10 @@ describe('findComposable', () => {
     const result = findComposables(code)
 
     expect(result[0]?.name).toBe('useCounter')
-    expect(result[0]?.start).toBeTypeOf('number')
-    expect(result[0]?.end).toBeTypeOf('number')
+    expect(result[0]?.functionStart).toBeTypeOf('number')
+    expect(result[0]?.functionEnd).toBeTypeOf('number')
+    expect(result[0]?.exportStart).toBeTypeOf('number')
+    expect(result[0]?.exportEnd).toBeTypeOf('number')
   })
 
   it('wraps composable with trackComposable', () => {
@@ -28,7 +30,7 @@ describe('findComposable', () => {
       transformComposable(code)
 
     expect(transformed).toContain(
-      'trackComposable(\'useCounter\'',
+      '__ob_trackComposable(\'useCounter\'',
     )
   })
 
@@ -62,7 +64,7 @@ export function useCounter() {
     const transformed = transformComposable(code)
 
     expect(transformed).toContain(
-      'import { trackComposable }',
+      'import { trackComposable as __ob_trackComposable }',
     )
   })
 
@@ -99,11 +101,43 @@ export function useCounter() {
       transformComposable(code)
 
     expect(transformed).toContain(
-      'trackComposable(\'useAuth\'',
+      '__ob_trackComposable(\'useAuth\'',
     )
 
     expect(transformed).toContain(
-      'trackComposable(\'useProducts\'',
+      '__ob_trackComposable(\'useProducts\'',
+    )
+  })
+
+  it('transforms async composables', () => {
+    const code = `
+export async function useCounter() {
+  return {}
+}
+`
+
+    const transformed = transformComposable(code)
+
+    expect(transformed).toContain(
+      'async function useCounter',
+    )
+
+    expect(transformed).toContain(
+      'trackComposable(\'useCounter\'',
+    )
+  })
+
+  it('transforms generic composables', () => {
+    const code = `
+export function useCounter<T>() {
+  return {}
+}
+`
+
+    const transformed = transformComposable(code)
+
+    expect(transformed).toContain(
+      'function useCounter<T>()',
     )
   })
 })

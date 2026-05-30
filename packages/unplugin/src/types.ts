@@ -1,5 +1,9 @@
 export interface FoundComposable {
   name: string
-  start: number
-  end: number
+
+  exportStart: number
+  exportEnd: number
+
+  functionStart: number
+  functionEnd: number
 }
