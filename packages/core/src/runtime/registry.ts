@@ -17,3 +17,21 @@ export function getInstances() {
 export function clearInstances() {
   composables.clear()
 }
+
+export function updateInstanceState(id: string, state: unknown) {
+  const instance = composables.get(id)
+  if (instance) {
+    instance.state = state
+  }
+}
+
+export function registerDependency(instanceId: string, dependencyId: string) {
+  const instance = composables.get(instanceId)
+  if (!instance) return
+
+  if (!instance.dependencyIds) {
+    instance.dependencyIds = new Set()
+  }
+
+  instance.dependencyIds.add(dependencyId)
+}

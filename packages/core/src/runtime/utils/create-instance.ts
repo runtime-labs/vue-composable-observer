@@ -1,12 +1,18 @@
 import { ComposableInstance } from "../types";
 import { createInstanceId } from ".";
 
-export function createInstance(name: string, state: unknown, ownerId?: string | null): ComposableInstance {
+export function createInstance(
+    id: string,
+    name: string,
+    ownerId?: string | null,
+    dependencyIds?: Set<string> | null,
+): ComposableInstance {
     return {
-        id: createInstanceId(),
+        id: id || createInstanceId(),
         name,
         createdAt: Date.now(),
-        state,
+        state:null,
         ownerId,
+        dependencyIds,
     }
 }
