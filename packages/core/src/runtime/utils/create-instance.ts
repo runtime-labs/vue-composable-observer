@@ -1,5 +1,8 @@
 import { type ComposableInstance } from '../types'
-import { createInstanceId } from '.'
+
+export function createInstanceId() {
+  return crypto.randomUUID()
+}
 
 export function createInstance(
   id: string,
