@@ -1,3 +1,3 @@
 export function isDev() {
-    return true
+  return true
 }

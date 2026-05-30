@@ -10,9 +10,9 @@ import {
 } from '../src'
 
 describe('registry', () => {
-    it.beforeEach(() => {
-        clearInstances()
-    })
+  it.beforeEach(() => {
+    clearInstances()
+  })
 
   it('updates instance state', () => {
 

@@ -1,9 +1,9 @@
 export interface ComposableInstance {
-    id: string
-    name: string
+  id: string
+  name: string
 
-    createdAt: number
+  createdAt: number
 
-    state: unknown
-    dependencyIds?: Set<string> | null
+  state: unknown
+  dependencyIds?: Set<string> | null
 }
