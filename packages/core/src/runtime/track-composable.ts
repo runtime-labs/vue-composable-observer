@@ -1,5 +1,6 @@
 import { isDev } from "../utils"
-import { registerComposable } from "./register-composable"
+import { createInstance } from "./create-instance"
+import { registerInstance } from "./registry"
 
 export function trackComposable<T>(
     name: string,
@@ -8,12 +9,17 @@ export function trackComposable<T>(
     return () => {
         const state = fn()
 
-        const instance = registerComposable(name, state)
+        const instance = createInstance(name, state)
         
+        registerInstance(instance)
+
         if (isDev()) {
             console.log(`Registered composable instance: ${instance.name} (ID: ${instance.id})`)
         }
 
-        return state
+        return {
+            state,
+            instance,
+        }
     }
 }
