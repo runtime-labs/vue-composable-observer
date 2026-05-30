@@ -1,12 +1,8 @@
-import { getInstances } from './registry'
-import { subscribe } from './subscribers'
+import { createObserver } from './utils/create-observer'
 
 declare global {
   interface Window {
-    __COMPOSABLE_OBSERVER__?: {
-      getInstances: typeof getInstances
-      subscribe: typeof subscribe
-    }
+    __COMPOSABLE_OBSERVER__?: ReturnType<typeof createObserver>
   }
 }
 
@@ -19,8 +15,5 @@ export function initComposableObserver() {
     return
   }
 
-  window.__COMPOSABLE_OBSERVER__ = {
-    getInstances,
-    subscribe,
-  }
+  window.__COMPOSABLE_OBSERVER__ = createObserver()
 }
