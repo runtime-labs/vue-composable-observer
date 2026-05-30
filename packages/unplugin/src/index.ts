@@ -1,1 +1,1 @@
-export { findComposable, transformComposable } from './transform'
+export { findComposables, transformComposable } from './transform'
