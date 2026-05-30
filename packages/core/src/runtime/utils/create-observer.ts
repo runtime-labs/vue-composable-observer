@@ -1,9 +1,9 @@
-import { getInstances } from "../registry";
-import { subscribe } from "../subscribers";
+import { getInstances } from '../registry'
+import { subscribe } from '../subscribers'
 
 export function createObserver() {
-    return {
-        getInstances,
-        subscribe,
-    }
+  return {
+    getInstances,
+    subscribe,
+  }
 }
