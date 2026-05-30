@@ -15,5 +15,19 @@
     }
   },
 
+  "forwardPorts": [3000, 4173, 5173, 24678],
+
+  "portsAttributes": {
+    "5173": {
+      "label": "Vite"
+    },
+    "24678": {
+      "label": "Vite HMR"
+    }
+  },
+
+  "remoteUser": "node",
+  "updateRemoteUserUID": true,
+
   "postCreateCommand": "pnpm install --frozen-lockfile --force"
 }
