@@ -51,4 +51,18 @@ export function useCounter() {
     'return { count }',
   )
 })
+
+it('injects trackComposable import', () => {
+  const code = `
+export function useCounter() {
+  return {}
+}
+`
+
+  const transformed = transformComposable(code)
+
+  expect(transformed).toContain(
+    "import { trackComposable }",
+  )
+})
 })

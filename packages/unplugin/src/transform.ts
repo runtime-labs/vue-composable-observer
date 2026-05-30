@@ -45,14 +45,18 @@ export function transformComposable(
     s.overwrite(
         composable.start,
         composable.end,
-        `
+`
 export const ${composable.name} = trackComposable('${composable.name}',
     ${original.replace(
         `export function ${composable.name}`,
         `function ${composable.name}`,
     )}
 )
-        `
+`
+    )
+
+    s.prepend(
+        `import { trackComposable } from '@goranton/vue-composable-observer-core'\n`,
     )
 
     return s.toString()
