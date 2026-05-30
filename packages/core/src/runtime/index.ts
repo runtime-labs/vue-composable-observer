@@ -1,5 +1,5 @@
 export { initComposableObserver } from './init'
 export { getInstances, registerInstance, unregisterInstance, clearInstances } from './registry'
-export { createInstance } from './create-instance'
-export { trackComposable } from './track-composable'
 export { setCurrentOwner, getCurrentOwner } from './owner'
+
+export * from './utils'
