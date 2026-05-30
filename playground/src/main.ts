@@ -1,4 +1,4 @@
-import { version, initComposableObserver, trackComposable } from '@goranton/vue-composable-observer-core'
+import { version, initComposableObserver, trackComposable, runWithOwner } from '@goranton/vue-composable-observer-core'
 import { createApp, ref } from 'vue'
 import './style.css'
 import App from './App.vue'
@@ -19,6 +19,12 @@ const useCounter = trackComposable('useCounter', () => {
   }
 })
 
-useCounter()
+runWithOwner(
+  'ComponentA',
+  () => {
+    useCounter()
+  },
+)
+
 
 console.log('Vue Composable Observer version:', version)

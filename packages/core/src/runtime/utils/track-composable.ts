@@ -1,7 +1,7 @@
-import { isDev } from "../utils"
+import { isDev } from "../../utils"
 import { createInstance } from "./create-instance"
-import { getCurrentOwner } from "./owner"
-import { registerInstance } from "./registry"
+import { getCurrentOwner } from "../owner"
+import { registerInstance } from "../registry"
 
 export function trackComposable<T>(
     name: string,
@@ -11,7 +11,8 @@ export function trackComposable<T>(
         const state = fn()
 
         const instance = createInstance(
-            name, state,
+            name, 
+            state,
             getCurrentOwner() || null,
         )
         
