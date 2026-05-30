@@ -240,6 +240,9 @@ importers:
       '@babel/parser':
         specifier: ^7.29.7
         version: 7.29.7
+      '@rollup/pluginutils':
+        specifier: ^5.4.0
+        version: 5.4.0(rollup@4.60.4)
       magic-string:
         specifier: ^0.30.21
         version: 0.30.21
