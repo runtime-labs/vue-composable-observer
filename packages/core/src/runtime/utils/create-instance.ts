@@ -4,7 +4,6 @@ import { createInstanceId } from ".";
 export function createInstance(
     id: string,
     name: string,
-    ownerId?: string | null,
     dependencyIds?: Set<string> | null,
 ): ComposableInstance {
     return {
@@ -12,7 +11,6 @@ export function createInstance(
         name,
         createdAt: Date.now(),
         state:null,
-        ownerId,
         dependencyIds,
     }
 }

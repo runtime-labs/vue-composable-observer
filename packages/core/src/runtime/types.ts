@@ -5,6 +5,5 @@ export interface ComposableInstance {
     createdAt: number
 
     state: unknown
-    ownerId?: string | null
     dependencyIds?: Set<string> | null
 }
