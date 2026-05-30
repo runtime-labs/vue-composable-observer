@@ -6,6 +6,20 @@ import { ref, onMounted } from 'vue'
 const useCounter = trackComposable(
   'useCounter',
   () => {
+    const counter = ref(0)
+
+    const { count } = useDeep()
+
+    return {
+      count,
+      counter,
+    }
+  },
+)
+
+const useDeep = trackComposable(
+  'useDeep',
+  () => {
     const count = ref(0)
 
     return {
