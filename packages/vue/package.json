@@ -1,0 +1,30 @@
+{
+  "name": "@goranton/vue-composable-observer-vue",
+  "version": "1.0.0",
+  "description": "",
+  "main": "./dist/index.mjs",
+  "types": "./dist/index.d.ts",
+  "files": [
+    "dist"
+  ],
+  "exports": {
+    ".": "./dist/index.mjs"
+  },
+  "scripts": {
+    "build": "unbuild"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "module",
+  "dependencies": {
+    "@vue/devtools-api": "^8.1.2",
+    "@goranton/vue-composable-observer-core": "workspace:*"
+  },
+  "devDependencies": {
+    "vue": "^3.5.0"
+  },
+  "peerDependencies": {
+    "vue": "^3.5.0"
+  }
+}
