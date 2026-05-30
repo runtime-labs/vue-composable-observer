@@ -4,7 +4,9 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "core:build": "pnpm --filter @goranton/vue-composable-observer-core run build",
+    "playground:dev": "pnpm --filter @goranton/vue-composable-observer-playground run dev"
   },
   "keywords": [],
   "author": "",
