@@ -1,0 +1,11 @@
+{
+  "name": "@goranton/vue-composable-observer-core",
+  "type": "module",
+  "exports": {
+    ".": "./dist/index.mjs"
+  },
+  "scripts": {
+    "build": "unbuild",
+    "dev": "unbuild --stub"
+  }
+}
