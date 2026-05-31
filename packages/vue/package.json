@@ -19,7 +19,8 @@
   "type": "module",
   "dependencies": {
     "@vue/devtools-api": "^8.1.2",
-    "@goranton/vue-composable-observer-core": "workspace:*"
+    "@goranton/vue-composable-observer-core": "workspace:*",
+    "@goranton/vue-composable-observer-unplugin": "workspace:*"
   },
   "devDependencies": {
     "vue": "^3.5.0"
