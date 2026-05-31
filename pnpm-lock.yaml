@@ -235,6 +235,8 @@ importers:
         specifier: ^3.5.0
         version: 3.5.35(typescript@6.0.3)
 
+  packages/devtools: {}
+
   packages/plugin:
     dependencies:
       '@babel/parser':
@@ -243,6 +245,9 @@ importers:
       '@goranton/vue-composable-observer-core':
         specifier: workspace:*
         version: link:../core
+      '@goranton/vue-composable-observer-devtools':
+        specifier: workspace:*
+        version: link:../devtools
       '@rollup/pluginutils':
         specifier: ^5.4.0
         version: 5.4.0(rollup@4.60.4)
