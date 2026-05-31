@@ -7,13 +7,14 @@ export function createInstanceId() {
 export function createInstance(
   id: string,
   name: string,
-  dependencyIds?: Set<string> | null,
+  parentId: string | null = null,
 ): ComposableInstance {
   return {
     id: id || createInstanceId(),
     name,
     createdAt: Date.now(),
     state: null,
-    dependencyIds,
+    dependencyIds: null,
+    parentId,
   }
 }

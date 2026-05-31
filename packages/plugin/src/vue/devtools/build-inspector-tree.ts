@@ -1,22 +1,22 @@
 import { getInstanceById, getInstances } from '@goranton/vue-composable-observer-core'
 
 function buildNode(id: string) {
-    const instance = getInstanceById(id)
+  const instance = getInstanceById(id)
 
-    if (!instance) {
-        return null
-    }
+  if (!instance) {
+    return null
+  }
 
-    return {
-        id: instance.id,
-        label: instance.name,
+  return {
+    id: instance.id,
+    label: instance.name,
 
-        children: [
-            ...(instance.dependencyIds ?? []),
-        ]
-        .map(buildNode)
-        .filter(Boolean)
-    }
+    children: [
+      ...(instance.dependencyIds ?? []),
+    ]
+      .map(buildNode)
+      .filter(Boolean),
+  }
 }
 
 export function buildInspectorTree() {

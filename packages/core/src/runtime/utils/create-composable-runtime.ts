@@ -3,12 +3,14 @@ import { createInstance, createInstanceId } from './create-instance'
 
 export function createComposableRuntime(
   name: string,
+  parentId: string | null,
 ) {
   const id = createInstanceId()
 
   const instance = createInstance(
     id,
     name,
+    parentId,
   )
 
   registerInstance(instance)

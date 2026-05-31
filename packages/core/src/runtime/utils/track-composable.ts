@@ -11,9 +11,9 @@ export function trackComposable<TArgs extends unknown[], TResult>(
   fn: (...args: TArgs) => TResult,
 ) {
   return (...args: TArgs) => {
-    const runtime = createComposableRuntime(name)
-
     const parentComposableId = getCurrentComposable()
+
+    const runtime = createComposableRuntime(name, parentComposableId)
 
     if (parentComposableId && parentComposableId !== runtime.id) {
       registerDependency(
