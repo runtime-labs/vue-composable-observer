@@ -1,23 +1,22 @@
 # Vue Composable Observer
 
+<p align="center">
+
+[![CI](https://github.com/runtime-labs/vue-composable-observer/actions/workflows/test.yml/badge.svg)](https://github.com/runtime-labs/vue-composable-observer/actions/workflows/test.yml)
+[![Composable Plugin](https://img.shields.io/npm/v/@runtime-labs/composable-plugin)](https://www.npmjs.com/package/@runtime-labs/composable-plugin)
+[![Observer Core](https://img.shields.io/npm/v/@runtime-labs/observer-core)](https://www.npmjs.com/package/@runtime-labs/observer-core)
+[![Downloads](https://img.shields.io/npm/dm/@runtime-labs/composable-plugin)](https://www.npmjs.com/package/@runtime-labs/composable-plugin)
+[![License](https://img.shields.io/npm/l/@runtime-labs/composable-plugin)](./LICENSE)
+
+</p>
+
 Observe, inspect and debug Vue composables at runtime.
 
-Vue Composable Observer reveals the hidden architecture of your Vue application by visualizing composable relationships, component ownership and runtime state directly inside Vue DevTools.
+Vue Composable Observer reveals the hidden architecture of your Vue application by visualizing composable relationships, component ownership, runtime state and dependency chains directly inside Vue DevTools.
 
 <p align="center">
   <img src="./docs/demo.gif" alt="Vue Composable Observer Demo" />
 </p>
-
-## Features
-
-* 🔍 Runtime composable inspection
-* 🌳 Composable dependency graph
-* 📦 Component → composable relationships
-* ⚡ Reactive state change tracking
-* 🛠 Vue DevTools integration
-* 🚀 Vite support
-* 💚 Vue 3 support
-* 🧹 Zero production overhead
 
 ## Why?
 
@@ -33,6 +32,18 @@ Over time it becomes difficult to answer questions like:
 * What caused this reactive update?
 
 Vue Composable Observer makes those relationships visible.
+
+## Features
+
+* 🔍 Runtime composable inspection
+* 🌳 Composable dependency graph
+* 📦 Component → composable relationships
+* ⚡ Reactive state change tracking
+* 🛠 Vue DevTools integration
+* 🚀 Vite support
+* 💚 Vue 3 support
+* 🧹 Zero production overhead
+* 📚 TypeScript support
 
 ## Installation
 
@@ -136,10 +147,10 @@ No code changes are required.
 
 ## Packages
 
-| Package                           | Description                                       |
-| --------------------------------- | ------------------------------------------------- |
-| `@runtime-labs/composable-core`   | Runtime tracking engine                           |
-| `@runtime-labs/composable-plugin` | Build-time transform and Vue DevTools integration |
+| Package                                                                                            | Description                                       |
+| -------------------------------------------------------------------------------------------------- | ------------------------------------------------- |
+| [`@runtime-labs/observer-core`](https://www.npmjs.com/package/@runtime-labs/observer-core)         | Runtime tracking engine                           |
+| [`@runtime-labs/composable-plugin`](https://www.npmjs.com/package/@runtime-labs/composable-plugin) | Build-time transform and Vue DevTools integration |
 
 ## Roadmap
 
@@ -149,6 +160,8 @@ No code changes are required.
 * [ ] State history
 * [ ] Runtime graph export
 * [ ] Advanced filtering
+* [ ] Dependency visualization
+* [ ] State diff viewer
 
 ### Static Analysis
 
@@ -156,10 +169,28 @@ No code changes are required.
 * [ ] Composable audit CLI
 * [ ] Architecture insights
 * [ ] Performance analysis
+* [ ] Shared state detection
+* [ ] Side effect detection
 
 ## Contributing
 
 Issues, feature requests and pull requests are welcome.
+
+If you discover a bug or have an idea for a new feature, please open an issue.
+
+## Development
+
+```bash
+pnpm install
+pnpm test
+pnpm build
+```
+
+Start playground:
+
+```bash
+pnpm play
+```
 
 ## License
 
