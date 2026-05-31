@@ -85,7 +85,7 @@ export const ${composable.name} = ${importName}('${composable.name}',
 
   if (!code.includes('@goranton/vue-composable-observer-core')) {
     s.prepend(
-      `import { trackComposable as ${importName} } from '@goranton/vue-composable-observer-core'`,
+      `import { trackComposable as ${importName} } from '@goranton/vue-composable-observer-core'\n`,
     )
   }
 

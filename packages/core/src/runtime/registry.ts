@@ -57,3 +57,7 @@ export function registerDependency(instanceId: string, dependencyId: string) {
     dependencyId,
   })
 }
+
+export function getInstanceById(id: ComposableInstance['id']): ComposableInstance | null {
+  return composables.get(id) ?? null
+}
