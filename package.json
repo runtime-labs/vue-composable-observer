@@ -8,6 +8,8 @@
     "plugin:unplugin:build": "pnpm --filter @goranton/vue-composable-observer-unplugin run build",
     "plugin:vue:build": "pnpm --filter @goranton/vue-composable-observer-vue run build",
     "playground:dev": "pnpm --filter @goranton/vue-composable-observer-playground run dev",
+    "devtools:build": "pnpm --filter @goranton/vue-composable-observer-devtools run build",
+    "devtools:dev": "pnpm --filter @goranton/vue-composable-observer-devtools run dev",
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",
     "test": "vitest run"
