@@ -1,24 +1,8 @@
 import { describe, expect, it } from 'vitest'
 
-import { findComposables, transformComposable } from '../../src/unplugin/transform.ts'
+import { transformComposable } from '../../src/unplugin/transform.ts'
 
 describe('findComposable', () => {
-  it('finds composable declaration range', () => {
-    const code = `
-    export function useCounter() {
-      return {}
-    }
-  `
-
-    const result = findComposables(code)
-
-    expect(result[0]?.name).toBe('useCounter')
-    expect(result[0]?.functionStart).toBeTypeOf('number')
-    expect(result[0]?.functionEnd).toBeTypeOf('number')
-    expect(result[0]?.exportStart).toBeTypeOf('number')
-    expect(result[0]?.exportEnd).toBeTypeOf('number')
-  })
-
   it('wraps composable with trackComposable', () => {
     const code = `
     export function useCounter() {
@@ -27,7 +11,7 @@ describe('findComposable', () => {
   `
 
     const transformed =
-      transformComposable(code)
+      transformComposable(code, 'test.js')
 
     expect(transformed).toContain(
       '__ob_trackComposable(\'useCounter\'',
@@ -43,7 +27,7 @@ export function useCounter() {
 }
 `
 
-    const transformed = transformComposable(code)
+    const transformed = transformComposable(code, 'test.js')
 
     expect(transformed).toContain(
       'const count = ref(0)',
@@ -61,29 +45,11 @@ export function useCounter() {
 }
 `
 
-    const transformed = transformComposable(code)
+    const transformed = transformComposable(code, 'test.js')
 
     expect(transformed).toContain(
       'import { trackComposable as __ob_trackComposable }',
     )
-  })
-
-  it('finds multiple composables', () => {
-    const code = `
-    export function useAuth() {}
-    export function useProducts() {}
-  `
-
-    const composables = findComposables(code)
-
-    expect(composables).toHaveLength(2)
-
-    expect(
-      composables.map(item => item.name),
-    ).toEqual([
-      'useAuth',
-      'useProducts',
-    ])
   })
 
   it('transforms multiple composables', () => {
@@ -98,7 +64,7 @@ export function useCounter() {
   `
 
     const transformed =
-      transformComposable(code)
+      transformComposable(code, 'test.js')
 
     expect(transformed).toContain(
       '__ob_trackComposable(\'useAuth\'',
@@ -116,7 +82,7 @@ export async function useCounter() {
 }
 `
 
-    const transformed = transformComposable(code)
+    const transformed = transformComposable(code, 'test.js')
 
     expect(transformed).toContain(
       'async function useCounter',
@@ -134,24 +100,11 @@ export function useCounter<T>() {
 }
 `
 
-    const transformed = transformComposable(code)
+    const transformed = transformComposable(code, 'test.js')
 
     expect(transformed).toContain(
       'function useCounter<T>()',
     )
-  })
-
-  it('finds exported arrow composables', () => {
-    const code = `
-export const useCounter = () => {
-  return {}
-}
-`
-
-    const composables = findComposables(code)
-
-    expect(composables).toHaveLength(1)
-    expect(composables[0]?.name).toBe('useCounter')
   })
 
   it('transforms exported arrow composables', () => {
@@ -161,7 +114,7 @@ export const useCounter = () => {
 }
 `
 
-    const transformed = transformComposable(code)
+    const transformed = transformComposable(code, 'test.js')
 
     expect(transformed).toContain(
       'trackComposable(\'useCounter\'',
