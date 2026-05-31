@@ -1,5 +1,5 @@
 {
-  "name": "vue-composable-observer",
+  "name": "@runtime-lab/composable-dev",
 
   "build": {
     "dockerfile": "Dockerfile"
