@@ -14,6 +14,7 @@ describe('composable lifecycle', () => {
 
     const useCounter = trackComposable(
       'useCounter',
+      'test.js',
       () => ({
         count: 0,
       }),
@@ -29,6 +30,7 @@ describe('composable lifecycle', () => {
 
     const useCounter = trackComposable(
       'useCounter',
+      'test.js',
       () => ({
         count: 0,
       }),
@@ -54,6 +56,7 @@ describe('composable lifecycle', () => {
 
     const useCounter = trackComposable(
       'useCounter',
+      'test.js',
       () => ({
         count,
       }),
@@ -85,6 +88,7 @@ describe('composable lifecycle', () => {
 
     const useCounter = trackComposable(
       'useCounter',
+      'test.js',
       () => ({
         count,
       }),

@@ -8,12 +8,17 @@ import { notifySubscribers } from '../subscribers'
 
 export function trackComposable<TArgs extends unknown[], TResult>(
   name: string,
+  file: string,
   fn: (...args: TArgs) => TResult,
 ) {
   return (...args: TArgs) => {
     const parentComposableId = getCurrentComposable()
 
-    const runtime = createComposableRuntime(name, parentComposableId)
+    const runtime = createComposableRuntime(
+      name,
+      file,
+      parentComposableId,
+    )
 
     if (parentComposableId && parentComposableId !== runtime.id) {
       registerDependency(

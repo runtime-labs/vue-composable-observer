@@ -15,7 +15,7 @@ export function trackStateChanges(
       watch(
         state,
         () => callback(),
-        { deep: true }
+        { deep: true },
       ),
     )
   }

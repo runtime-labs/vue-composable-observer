@@ -24,13 +24,13 @@ export function setupComposableObserverDevtools(
     (api) => {
       const stateUpdatedEvents: ObserverEvent[] = [
         'instance:stateUpdated',
-        'instance:dependencyRegistered'
-      ] 
+        'instance:dependencyRegistered',
+      ]
 
       const treeUpdatedEvents: ObserverEvent[] = [
         'instance:cleared',
         'instance:registered',
-        'instance:unregistered'
+        'instance:unregistered',
       ]
 
       api.addInspector({
@@ -44,13 +44,13 @@ export function setupComposableObserverDevtools(
 
         if (stateUpdatedEvents.includes(event.type)) {
           api.sendInspectorState(INSPECTOR_ID)
-        
+
           return
         }
 
         if (treeUpdatedEvents.includes(event.type)) {
           api.sendInspectorTree(INSPECTOR_ID)
-          
+
           return
         }
       })
@@ -67,7 +67,7 @@ export function setupComposableObserverDevtools(
         (payload) => {
           if (payload.inspectorId === INSPECTOR_ID) {
             payload.rootNodes = buildInspectorTree(
-              payload.filter
+              payload.filter,
             )
           }
         },

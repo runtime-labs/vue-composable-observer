@@ -27,7 +27,11 @@ export const VueComposableObserver = createUnplugin(
           return
         }
 
-        return transformComposable(code, { importPrefix: options.importPrefix ?? '' })
+        return transformComposable(
+          code,
+          id,
+          { importPrefix: options.importPrefix ?? '' },
+        )
       },
     }
   })
