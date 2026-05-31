@@ -235,39 +235,20 @@ importers:
         specifier: ^3.5.0
         version: 3.5.35(typescript@6.0.3)
 
-  packages/devtools:
-    dependencies:
-      vue:
-        specifier: ^3.5.34
-        version: 3.5.35(typescript@6.0.3)
-    devDependencies:
-      '@types/node':
-        specifier: ^24.12.3
-        version: 24.12.4
-      '@vitejs/plugin-vue':
-        specifier: ^6.0.6
-        version: 6.0.7(vite@8.0.14(@types/node@24.12.4)(jiti@2.7.0))(vue@3.5.35(typescript@6.0.3))
-      '@vue/tsconfig':
-        specifier: ^0.9.1
-        version: 0.9.1(typescript@6.0.3)(vue@3.5.35(typescript@6.0.3))
-      typescript:
-        specifier: ~6.0.2
-        version: 6.0.3
-      vite:
-        specifier: ^8.0.12
-        version: 8.0.14(@types/node@24.12.4)(jiti@2.7.0)
-      vue-tsc:
-        specifier: ^3.2.8
-        version: 3.3.2(typescript@6.0.3)
-
-  packages/unplugin:
+  packages/plugin:
     dependencies:
       '@babel/parser':
         specifier: ^7.29.7
         version: 7.29.7
+      '@goranton/vue-composable-observer-core':
+        specifier: workspace:*
+        version: link:../core
       '@rollup/pluginutils':
         specifier: ^5.4.0
         version: 5.4.0(rollup@4.60.4)
+      '@vue/devtools-api':
+        specifier: ^8.1.2
+        version: 8.1.2
       magic-string:
         specifier: ^0.30.21
         version: 0.30.21
@@ -284,19 +265,6 @@ importers:
       unbuild:
         specifier: ^3.6.1
         version: 3.6.1(typescript@6.0.3)(vue-tsc@3.3.2(typescript@6.0.3))(vue@3.5.35(typescript@6.0.3))
-
-  packages/vue:
-    dependencies:
-      '@goranton/vue-composable-observer-core':
-        specifier: workspace:*
-        version: link:../core
-      '@goranton/vue-composable-observer-unplugin':
-        specifier: workspace:*
-        version: link:../unplugin
-      '@vue/devtools-api':
-        specifier: ^8.1.2
-        version: 8.1.2
-    devDependencies:
       vue:
         specifier: ^3.5.0
         version: 3.5.35(typescript@6.0.3)
@@ -306,12 +274,9 @@ importers:
       '@goranton/vue-composable-observer-core':
         specifier: workspace:*
         version: link:../packages/core
-      '@goranton/vue-composable-observer-unplugin':
+      '@goranton/vue-composable-observer-plugin':
         specifier: workspace:*
-        version: link:../packages/unplugin
-      '@goranton/vue-composable-observer-vue':
-        specifier: workspace:*
-        version: link:../packages/vue
+        version: link:../packages/plugin
       vue:
         specifier: ^3.5.34
         version: 3.5.35(typescript@6.0.3)

@@ -5,11 +5,8 @@
   "main": "index.js",
   "scripts": {
     "core:build": "pnpm --filter @goranton/vue-composable-observer-core run build",
-    "plugin:unplugin:build": "pnpm --filter @goranton/vue-composable-observer-unplugin run build",
-    "plugin:vue:build": "pnpm --filter @goranton/vue-composable-observer-vue run build",
     "playground:dev": "pnpm --filter @goranton/vue-composable-observer-playground run dev",
-    "devtools:build": "pnpm --filter @goranton/vue-composable-observer-devtools run build",
-    "devtools:dev": "pnpm --filter @goranton/vue-composable-observer-devtools run dev",
+    "plugin:build": "pnpm --filter @goranton/vue-composable-observer-plugin run build",
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",
     "test": "vitest run"

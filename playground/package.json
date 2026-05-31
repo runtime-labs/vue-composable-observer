@@ -11,8 +11,7 @@
   "dependencies": {
     "vue": "^3.5.34",
     "@goranton/vue-composable-observer-core": "workspace:*",
-    "@goranton/vue-composable-observer-unplugin": "workspace:*",
-    "@goranton/vue-composable-observer-vue": "workspace:*"
+    "@goranton/vue-composable-observer-plugin": "workspace:*"
   },
   "devDependencies": {
     "@types/node": "^24.12.3",

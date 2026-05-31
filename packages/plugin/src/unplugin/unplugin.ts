@@ -3,7 +3,6 @@ import { createFilter } from '@rollup/pluginutils'
 
 import { transformComposable } from './transform'
 import { type PluginOptions } from './types'
-import { DEVTOOLS_ROUTE, renderDevtoolsPage } from './devtools'
 
 export const VueComposableObserver = createUnplugin(
   (options: PluginOptions = {}) => {
@@ -16,14 +15,6 @@ export const VueComposableObserver = createUnplugin(
 
     return {
       name: 'vue-composable-observer',
-      vite: {
-        configureServer(server) {
-          server.middlewares.use(DEVTOOLS_ROUTE, (_, res) => {
-            res.setHeader('Content-Type', 'text/html')
-            res.end(renderDevtoolsPage())
-          })
-        },
-      },
       transform(code, id) {
         if (!filter(id)) {
           return
