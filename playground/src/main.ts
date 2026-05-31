@@ -2,7 +2,7 @@ import { version } from '@goranton/vue-composable-observer-core'
 import { createApp } from 'vue'
 import './style.css'
 import App from './App.vue'
-import { ComposableObserverVuePlugin } from '@goranton/vue-composable-observer-vue'
+import { ComposableObserverVuePlugin } from '@goranton/vue-composable-observer-plugin'
 
 createApp(App).use(ComposableObserverVuePlugin).mount('#app')
 
