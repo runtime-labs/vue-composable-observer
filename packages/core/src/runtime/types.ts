@@ -8,4 +8,10 @@ export interface ComposableInstance {
   state: unknown
   dependencyIds?: Set<string> | null
   parentId?: string | null
+
+  component?: {
+    uid: number
+    name: string
+    file?: string
+  }
 }

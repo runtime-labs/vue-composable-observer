@@ -1,5 +1,5 @@
 import { getInstanceById, getInstances } from '@goranton/vue-composable-observer-core'
-import { Node } from './view'
+import { Node } from '../types'
 
 function buildNode(id: string, instances: ReturnType<typeof getInstances>): Node | null {
   const instance = getInstanceById(id)
@@ -26,23 +26,10 @@ function buildNode(id: string, instances: ReturnType<typeof getInstances>): Node
   } as const
 }
 
-export function buildInspectorTree(
-  filter?: string,
-) {
+export function buildRuntimeTree() {
   const instances = getInstances()
 
-  const normalizedFilter = filter?.toLowerCase().trim()
-
-  const filteredInstances =
-    !normalizedFilter
-      ? instances
-      : instances.filter(instance =>
-        instance.name
-          .toLowerCase()
-          .includes(normalizedFilter),
-      )
-
-  return filteredInstances
+  return instances
     .filter(
       instance => !instance.parentId,
     )

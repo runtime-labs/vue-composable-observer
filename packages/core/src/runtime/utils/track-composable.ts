@@ -1,7 +1,7 @@
 import { isDev } from '../../utils'
-import { registerDependency } from '../registry'
+import { registerDependency, updateInstanceComponent } from '../registry'
 import { getCurrentComposable, runWithComposable } from '../scope'
-import { getCurrentScope, onScopeDispose } from 'vue'
+import { getCurrentScope, onScopeDispose, getCurrentInstance } from 'vue'
 import { createComposableRuntime } from './create-composable-runtime'
 import { trackStateChanges } from './track-state-changes'
 import { notifySubscribers } from '../subscribers'
@@ -49,7 +49,23 @@ export function trackComposable<TArgs extends unknown[], TResult>(
       console.log(`Registered composable instance: ${runtime.instance.name} (ID: ${runtime.instance.id})`)
     }
 
-    if (getCurrentScope()) {
+    const scope = getCurrentScope()
+    const vm = getCurrentInstance()
+
+    if (vm && !parentComposableId) {
+      updateInstanceComponent(
+        runtime.id,
+        {
+          uid: vm.uid,
+          name: vm.type.__name
+            ?? vm.type.name
+            ?? 'Anonymous',
+          file: vm.type.__file,
+        },
+      )
+    }
+
+    if (scope) {
       onScopeDispose(() => {
         if (isDev()) {
           console.log(`Unregistering composable instance: ${runtime.instance.name} (ID: ${runtime.instance.id})`)

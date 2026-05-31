@@ -42,6 +42,13 @@ export function updateInstanceState(id: string, state: unknown) {
   }
 }
 
+export function updateInstanceComponent(id: string, component: ComposableInstance['component']) {
+  const instance = composables.get(id)
+  if (instance) {
+    instance.component = component
+  }
+}
+
 export function registerDependency(instanceId: string, dependencyId: string) {
   const instance = composables.get(instanceId)
   if (!instance) return

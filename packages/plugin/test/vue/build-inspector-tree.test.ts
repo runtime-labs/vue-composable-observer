@@ -13,11 +13,13 @@ describe('buildInspectorTree', () => {
 
     const useStorage = trackComposable(
       'useStorage',
+      'tests.ts',
       () => ({}),
     )
 
     const useAuth = trackComposable(
       'useAuth',
+      'tests.ts',
       () => {
         useStorage()
 
@@ -27,6 +29,7 @@ describe('buildInspectorTree', () => {
 
     const useProducts = trackComposable(
       'useProducts',
+      'tests.ts',
       () => {
         useAuth()
 
@@ -41,16 +44,16 @@ describe('buildInspectorTree', () => {
     expect(tree).toHaveLength(1)
 
     expect(tree[0]?.label).toBe(
-      'useProducts',
+      'useProducts (tests.ts)',
     )
 
     expect(
       tree[0]?.children[0]?.label,
-    ).toBe('useAuth')
+    ).toBe('useAuth (tests.ts)')
 
     expect(
       tree[0]?.children[0]?.children[0]?.label,
-    ).toBe('useStorage')
+    ).toBe('useStorage (tests.ts)')
   })
 
   it('returns empty array when no composables exist', () => {
@@ -66,6 +69,7 @@ describe('buildInspectorTree', () => {
 
     const useStorage = trackComposable(
       'useStorage',
+      'tests.ts',
       () => ({}),
     )
 
@@ -79,7 +83,7 @@ describe('buildInspectorTree', () => {
 
     expect(
       tree[0]?.label,
-    ).toBe('useStorage')
+    ).toBe('useStorage (tests.ts)')
   })
 
   it('returns empty array when filter does not match', () => {
@@ -87,6 +91,7 @@ describe('buildInspectorTree', () => {
 
     const useStorage = trackComposable(
       'useStorage',
+      'tests.ts',
       () => ({}),
     )
 
