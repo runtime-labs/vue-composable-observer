@@ -1,6 +1,7 @@
 export interface ComposableInstance {
   id: string
   name: string
+  file: string
 
   createdAt: number
 

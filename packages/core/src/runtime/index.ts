@@ -1,7 +1,7 @@
 export { initComposableObserver } from './init'
-export { 
-    getInstances, registerInstance, unregisterInstance, clearInstances, 
-    updateInstanceState, getInstanceById
+export {
+  getInstances, registerInstance, unregisterInstance, clearInstances,
+  updateInstanceState, getInstanceById,
 } from './registry'
 export { notifySubscribers, subscribe } from './subscribers'
 

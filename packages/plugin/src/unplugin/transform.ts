@@ -51,6 +51,7 @@ export function findComposables(
 
 export function transformComposable(
   code: string,
+  file: string,
   options: { importPrefix: string } | undefined = undefined,
 ): string {
   const composables = findComposables(code)
@@ -73,7 +74,7 @@ export function transformComposable(
       composable.exportStart,
       composable.exportEnd,
       `
-export const ${composable.name} = ${importName}('${composable.name}',
+export const ${composable.name} = ${importName}('${composable.name}', '${file}',
     ${original.replace(
       `export function ${composable.name}`,
       `function ${composable.name}`,

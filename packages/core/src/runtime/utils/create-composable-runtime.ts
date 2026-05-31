@@ -3,6 +3,7 @@ import { createInstance, createInstanceId } from './create-instance'
 
 export function createComposableRuntime(
   name: string,
+  file: string,
   parentId: string | null,
 ) {
   const id = createInstanceId()
@@ -10,6 +11,7 @@ export function createComposableRuntime(
   const instance = createInstance(
     id,
     name,
+    file,
     parentId,
   )
 

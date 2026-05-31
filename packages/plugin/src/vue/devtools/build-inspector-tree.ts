@@ -20,7 +20,7 @@ function buildNode(id: string, instances: ReturnType<typeof getInstances>): Node
 
   return {
     id: instance.id,
-    label: instance.name,
+    label: `${instance.name} (${instance.file})`,
     children: childrenIds
       .map(
         childId => buildNode(childId, instances),
@@ -32,20 +32,20 @@ function buildNode(id: string, instances: ReturnType<typeof getInstances>): Node
 }
 
 export function buildInspectorTree(
-  filter?: string
+  filter?: string,
 ) {
   const instances = getInstances()
 
   const normalizedFilter = filter?.toLowerCase().trim()
 
-const filteredInstances =
+  const filteredInstances =
     !normalizedFilter
       ? instances
       : instances.filter(instance =>
-          instance.name
-            .toLowerCase()
-            .includes(normalizedFilter),
-        )
+        instance.name
+          .toLowerCase()
+          .includes(normalizedFilter),
+      )
 
   return filteredInstances
     .filter(
@@ -55,6 +55,6 @@ const filteredInstances =
       instance => buildNode(instance.id, instances),
     )
     .filter(
-      instance => instance !== null
+      instance => instance !== null,
     )
 }

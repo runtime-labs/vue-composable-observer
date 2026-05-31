@@ -7,9 +7,9 @@ describe('dependencies', () => {
   it('tracks nested composable dependencies', () => {
     clearInstances()
 
-    const useAuth = trackComposable('useAuth', () => ({}))
+    const useAuth = trackComposable('useAuth', 'test.js', () => ({}))
 
-    const useProducts = trackComposable('useProducts', () => {
+    const useProducts = trackComposable('useProducts','test.js', () => {
       const auth = useAuth()
 
       return { auth }
@@ -28,15 +28,15 @@ describe('dependencies', () => {
   it('tracks deep dependency chains', () => {
     clearInstances()
 
-    const useStorage = trackComposable('useStorage', () => ({}))
+    const useStorage = trackComposable('useStorage', 'test.js', () => ({}))
 
-    const useAuth = trackComposable('useAuth', () => {
+    const useAuth = trackComposable('useAuth', 'test.js', () => {
       useStorage()
 
       return {}
     })
 
-    const useProducts = trackComposable('useProducts', () => {
+    const useProducts = trackComposable('useProducts', 'test.js', () => {
       useAuth()
 
       return {}
@@ -59,9 +59,9 @@ describe('dependencies', () => {
   it('removes dependency graph when scope is disposed', () => {
     clearInstances()
 
-    const useAuth = trackComposable('useAuth', () => ({}))
+    const useAuth = trackComposable('useAuth',  'test.js', () => ({}))
 
-    const useProducts = trackComposable('useProducts', () => {
+    const useProducts = trackComposable('useProducts',  'test.js', () => {
       useAuth()
 
       return {}
@@ -83,9 +83,9 @@ describe('dependencies', () => {
   it('tracks multiple instances of the same dependency', () => {
     clearInstances()
 
-    const useAuth = trackComposable('useAuth', () => ({}))
+    const useAuth = trackComposable('useAuth', 'test.js', () => ({}))
 
-    const useProducts = trackComposable('useProducts', () => {
+    const useProducts = trackComposable('useProducts', 'test.js', () => {
       useAuth()
       useAuth()
 
@@ -105,11 +105,13 @@ describe('dependencies', () => {
 
     const useAuth = trackComposable(
       'useAuth',
+      'test.js',
       () => ({}),
     )
 
     const useProducts = trackComposable(
       'useProducts',
+      'test.js',
       () => {
         useAuth()
 
@@ -138,6 +140,7 @@ describe('dependencies', () => {
 
     const useProducts = trackComposable(
       'useProducts',
+      'test.js',
       () => ({}),
     )
 
@@ -155,11 +158,13 @@ describe('dependencies', () => {
 
     const useStorage = trackComposable(
       'useStorage',
+      'test.js',
       () => ({}),
     )
 
     const useAuth = trackComposable(
       'useAuth',
+      'test.js',
       () => {
         useStorage()
 
@@ -169,6 +174,7 @@ describe('dependencies', () => {
 
     const useProducts = trackComposable(
       'useProducts',
+      'test.js',
       () => {
         useAuth()
 
@@ -200,11 +206,13 @@ describe('dependencies', () => {
 
     const useAuth = trackComposable(
       'useAuth',
+      'test.js',
       () => ({}),
     )
 
     const useProducts = trackComposable(
       'useProducts',
+      'test.js',
       () => {
         useAuth()
         useAuth()
