@@ -3,6 +3,11 @@ import { getInstanceById } from '@goranton/vue-composable-observer-core'
 export function buildInspectorState(id: string) {
   const instance = getInstanceById(id)
 
+  const deps = Array.from(instance?.dependencyIds ?? new Set())
+    .filter((depId) => typeof depId === 'string')
+    .map((depId) => getInstanceById(depId))
+    .filter((dep) => dep !== null)
+
   return {
     General: [
       {
@@ -19,5 +24,9 @@ export function buildInspectorState(id: string) {
     ).map(([key, value]) => ({
       key, value,
     })),
+    Dependencies: deps.map((dep) => ({
+        key: dep.id,
+        value: dep.name
+    }))
   }
 }
