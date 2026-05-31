@@ -1,3 +1,4 @@
+
 import { createObserver } from './utils/create-observer'
 
 declare global {
