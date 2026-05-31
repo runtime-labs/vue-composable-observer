@@ -1,5 +1,6 @@
 import { App } from "vue";
 import { addCustomTab, setupDevtoolsPlugin } from '@vue/devtools-api'
+import { DEVTOOLS_ROUTE } from "../constants";
 
 export function setupComposableObserverDevtools(
     app: App
