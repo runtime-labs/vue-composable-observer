@@ -1,1 +1,0 @@
-export const DEVTOOLS_ROUTE = '/__vue_composable_observer'
