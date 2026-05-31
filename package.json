@@ -25,14 +25,6 @@
     "play": "pnpm build && pnpm playground:dev"
   },
 
-  "devEngines": {
-    "packageManager": {
-      "name": "pnpm",
-      "version": "^11.1.2",
-      "onFail": "download"
-    }
-  },
-
   "devDependencies": {
     "@eslint/js": "^10.0.1",
     "@stylistic/eslint-plugin": "^5.10.0",
@@ -41,5 +33,7 @@
     "typescript-eslint": "^8.60.0",
     "unbuild": "^3.6.1",
     "vitest": "^4.1.7"
-  }
+  },
+
+  "packageManager": "pnpm@11.1.2"
 }
