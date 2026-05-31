@@ -1,6 +1,6 @@
 import { defineConfig } from 'vite'
 import vue from '@vitejs/plugin-vue'
-import { VueComposableObserver } from '@goranton/vue-composable-observer-plugin/unplugin'
+import { VueComposableObserver } from '@runtime-labs/composable-plugin/unplugin'
 
 // https://vite.dev/config/
 export default defineConfig({

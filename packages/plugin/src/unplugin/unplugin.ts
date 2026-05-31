@@ -14,7 +14,7 @@ export const VueComposableObserver = createUnplugin(
     )
 
     return {
-      name: 'vue-composable-observer',
+      name: '@runtime-labs/composable-observer',
       transform(code, id) {
         if (!filter(id)) {
           return
@@ -22,7 +22,7 @@ export const VueComposableObserver = createUnplugin(
 
         if (
           !id.endsWith('.ts')
-        && !id.endsWith('.js')
+          && !id.endsWith('.js')
         ) {
           return
         }

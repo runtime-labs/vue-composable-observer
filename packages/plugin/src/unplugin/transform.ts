@@ -36,9 +36,9 @@ export const ${composable.name} = ${importName}('${composable.name}', '${file}',
     )
   }
 
-  if (!code.includes('@goranton/vue-composable-observer-core')) {
+  if (!code.includes('@runtime-labs/observer-core')) {
     s.prepend(
-      `import { trackComposable as ${importName} } from '@goranton/vue-composable-observer-core'\n`,
+      `import { trackComposable as ${importName} } from '@runtime-labs/observer-core'\n`,
     )
   }
 

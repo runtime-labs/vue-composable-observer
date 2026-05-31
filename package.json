@@ -1,15 +1,21 @@
 {
-  "name": "vue-composable-observer",
+  "name": "@runtime-labs/composable-observer",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
+  "private": true,
   "scripts": {
-    "core:build": "pnpm --filter @goranton/vue-composable-observer-core run build",
-    "playground:dev": "pnpm --filter @goranton/vue-composable-observer-playground run dev",
-    "plugin:build": "pnpm --filter @goranton/vue-composable-observer-plugin run build",
+    "core:build": "pnpm --filter @runtime-labs/observer-core run build",
+    "core:publish": "pnpm --filter @runtime-labs/observer-core publish",
+    "core:pack": "pnpm --filter @runtime-labs/observer-core pack",
+    "plugin:build": "pnpm --filter @runtime-labs/composable-plugin run build",
+    "plugin:publish": "pnpm --filter @runtime-labs/observer-core publish",
+    "plugin:pack": "pnpm --filter @runtime-labs/composable-plugin pack",
+    "playground:dev": "pnpm --filter @runtime-labs/composable-playground run dev",
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",
-    "test": "vitest run"
+    "test": "vitest run",
+    "play": "pnpm core:build && pnpm plugin:build && pnpm playground:dev"
   },
   "keywords": [],
   "author": "",

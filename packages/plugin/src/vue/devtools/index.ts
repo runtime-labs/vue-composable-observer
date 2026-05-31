@@ -4,7 +4,7 @@ import { setupDevtoolsPlugin } from '@vue/devtools-api'
 import { DEVTOOLS_META } from './meta'
 import { buildInspectorState } from './build-inspector-state'
 
-import { subscribe } from '@goranton/vue-composable-observer-core'
+import { subscribe } from '@runtime-labs/observer-core'
 
 import {
   buildComponentTree,
@@ -18,13 +18,13 @@ export function setupComposableObserverDevtools(
   app: App,
 ) {
   const RUNTIME_INSPECTOR_ID =
-    'vue-composable-observer-runtime'
+    '@runtime-labs/composable-runtime'
 
   const COMPONENT_INSPECTOR_ID =
-    'vue-composable-observer-component'
+    '@runtime-labs/composable-component'
 
   const FLAT_INSPECTOR_ID =
-    'vue-composable-observer-flat'
+    '@runtime-labs/composable-flat'
 
   const INSPECTORS = [
     RUNTIME_INSPECTOR_ID,

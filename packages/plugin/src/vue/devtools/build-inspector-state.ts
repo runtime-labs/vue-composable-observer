@@ -1,4 +1,4 @@
-import { getInstanceById } from '@goranton/vue-composable-observer-core'
+import { getInstanceById } from '@runtime-labs/observer-core'
 
 export function buildInspectorState(id: string) {
   const instance = getInstanceById(id)

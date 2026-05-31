@@ -1,5 +1,5 @@
 {
-  "name": "@goranton/vue-composable-observer-playground",
+  "name": "@runtime-labs/composable-playground",
   "private": true,
   "version": "0.0.0",
   "type": "module",
@@ -10,8 +10,8 @@
   },
   "dependencies": {
     "vue": "^3.5.34",
-    "@goranton/vue-composable-observer-core": "workspace:*",
-    "@goranton/vue-composable-observer-plugin": "workspace:*"
+    "@runtime-labs/observer-core": "workspace:*",
+    "@runtime-labs/composable-plugin": "workspace:*"
   },
   "devDependencies": {
     "@types/node": "^24.12.3",

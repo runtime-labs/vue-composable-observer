@@ -1,4 +1,4 @@
-import { getInstances } from '@goranton/vue-composable-observer-core'
+import { getInstances } from '@runtime-labs/observer-core'
 
 import { buildNode } from '../utils/build-node'
 import { formatLabel } from '../utils/format-label'

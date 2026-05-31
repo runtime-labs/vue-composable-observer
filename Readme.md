@@ -1,171 +1,165 @@
 # Vue Composable Observer
 
-Track Vue composables at runtime and inspect their state, dependencies and ownership directly in Vue DevTools.
+Observe, inspect and debug Vue composables at runtime.
+
+Vue Composable Observer reveals the hidden architecture of your Vue application by visualizing composable relationships, component ownership and runtime state directly inside Vue DevTools.
+
+<p align="center">
+  <img src="./docs/demo.gif" alt="Vue Composable Observer Demo" />
+</p>
 
 ## Features
 
-* 🔍 Automatic composable discovery
-* 📦 Runtime composable tracking
-* 🌳 Dependency tree visualization
-* 🧩 Component ownership tracking
-* 📄 Source file mapping
-* ⚡ Live state updates
+* 🔍 Runtime composable inspection
+* 🌳 Composable dependency graph
+* 📦 Component → composable relationships
+* ⚡ Reactive state change tracking
 * 🛠 Vue DevTools integration
-* 🔎 Search support
+* 🚀 Vite support
+* 💚 Vue 3 support
+* 🧹 Zero production overhead
 
 ## Why?
 
-Vue DevTools shows components, Pinia stores and application state, but composables often remain invisible.
+As Vue applications grow, composables become an invisible architectural layer.
 
-When an application grows, it becomes difficult to answer questions like:
+Over time it becomes difficult to answer questions like:
 
-* Which composables are currently active?
 * Which composable created this state?
 * Which composables depend on each other?
-* Which component owns a composable instance?
-* Where is a composable defined?
+* Why did this ref change?
+* Why was this composable instantiated?
+* Which component is using this composable?
+* What caused this reactive update?
 
-Vue Composable Observer makes composables observable at runtime.
+Vue Composable Observer makes those relationships visible.
 
 ## Installation
 
 ```bash
-pnpm add -D @goranton/vue-composable-observer
+pnpm add -D @runtime-labs/composable-plugin
 ```
 
-## Vite
+## Setup
+
+### Vite
 
 ```ts
 import { defineConfig } from 'vite'
-import VueComposableObserver from '@goranton/vue-composable-observer/vite'
+import vue from '@vitejs/plugin-vue'
+
+import {
+  VueComposableObserver,
+} from '@runtime-labs/composable-plugin/unplugin'
 
 export default defineConfig({
   plugins: [
-    VueComposableObserver(),
+    vue(),
+    VueComposableObserver.vite(),
   ],
 })
 ```
 
-## Vue
+### Vue
 
 ```ts
 import { createApp } from 'vue'
+
+import {
+  ComposableObserverVuePlugin,
+} from '@runtime-labs/composable-plugin/vue'
+
 import App from './App.vue'
 
-import { VueComposableObserverPlugin } from '@goranton/vue-composable-observer/vue'
-
 createApp(App)
-  .use(VueComposableObserverPlugin)
+  .use(ComposableObserverVuePlugin)
   .mount('#app')
 ```
 
+## Usage
+
+Start your application and open Vue DevTools.
+
+A new **Composable Observer** inspector will appear.
+
+### Runtime View
+
+Visualizes composable hierarchy and runtime relationships.
+
+```txt
+useProducts
+ ├─ useApi
+ └─ useAuth
+     └─ useStorage
+```
+
+### Component View
+
+Shows which components are using specific composables.
+
+```txt
+ProductPage
+ ├─ useProducts
+ └─ useAuth
+```
+
+### Flat View
+
+Provides a searchable list of all tracked composables.
+
 ## Example
 
+Given the following composable:
+
 ```ts
-export function useStorage() {
-  const count = ref(0)
-
-  return {
-    count,
-  }
-}
-
-export function useAuth() {
-  const storage = useStorage()
-
-  return {
-    storage,
-  }
-}
-
 export function useProducts() {
-  const auth = useAuth()
+  const { user } = useAuth()
+  const { get } = useApi()
+
+  const products = ref([])
 
   return {
-    auth,
+    products,
   }
 }
 ```
 
-Runtime tree:
+Composable Observer automatically tracks:
 
-```text
-useProducts
-└─ useAuth
-   └─ useStorage
-```
+* composable creation
+* composable nesting
+* component ownership
+* runtime relationships
+* state changes
 
-Component tree:
+No code changes are required.
 
-```text
-App.vue
-└─ useProducts
-   └─ useAuth
-      └─ useStorage
-```
+## Packages
 
-## DevTools Views
-
-### Runtime
-
-Shows runtime composable hierarchy.
-
-```text
-useProducts
-└─ useAuth
-   └─ useStorage
-```
-
-### Components
-
-Shows composables grouped by owning component.
-
-```text
-ProductsPage.vue
-└─ useProducts
-   └─ useAuth
-```
-
-### Flat
-
-Shows all active composable instances.
-
-```text
-useProducts
-useAuth
-useStorage
-```
-
-## What is tracked?
-
-The plugin currently tracks:
-
-* Exported composable functions
-* Runtime instances
-* Parent-child composable relationships
-* Reactive state updates
-* Component ownership
-* Source file information
-
-## Current Limitations
-
-* Vue only
-* Vite only
-* Development mode only
-* Experimental API
-* DevTools integration may evolve between releases
+| Package                           | Description                                       |
+| --------------------------------- | ------------------------------------------------- |
+| `@runtime-labs/composable-core`   | Runtime tracking engine                           |
+| `@runtime-labs/composable-plugin` | Build-time transform and Vue DevTools integration |
 
 ## Roadmap
 
-* Timeline view
-* Dependency graph view
-* Better search and filtering
-* Nuxt-specific integrations
-* Performance insights
+### Runtime Inspection
+
+* [ ] Timeline view
+* [ ] State history
+* [ ] Runtime graph export
+* [ ] Advanced filtering
+
+### Static Analysis
+
+* [ ] Circular dependency detection
+* [ ] Composable audit CLI
+* [ ] Architecture insights
+* [ ] Performance analysis
 
 ## Contributing
 
-Issues and pull requests are welcome.
+Issues, feature requests and pull requests are welcome.
 
 ## License
 
