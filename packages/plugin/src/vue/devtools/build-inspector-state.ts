@@ -25,8 +25,8 @@ export function buildInspectorState(id: string) {
       key, value,
     })),
     Dependencies: deps.map((dep) => ({
-        key: dep.id,
-        value: dep.name
-    }))
+      key: dep.id,
+      value: dep.name,
+    })),
   }
 }

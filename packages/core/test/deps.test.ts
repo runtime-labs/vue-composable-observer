@@ -99,4 +99,134 @@ describe('dependencies', () => {
     expect(products).toBeDefined()
     expect(products?.dependencyIds?.size).toBe(2)
   })
+
+  it('assigns parent id for nested composables', () => {
+    clearInstances()
+
+    const useAuth = trackComposable(
+      'useAuth',
+      () => ({}),
+    )
+
+    const useProducts = trackComposable(
+      'useProducts',
+      () => {
+        useAuth()
+
+        return {}
+      },
+    )
+
+    useProducts()
+
+    const products = getInstances().find(
+      item => item.name === 'useProducts',
+    )
+
+    const auth = getInstances().find(
+      item => item.name === 'useAuth',
+    )
+
+    expect(products).toBeDefined()
+    expect(auth).toBeDefined()
+
+    expect(auth?.parentId).toBe(products?.id)
+  })
+
+  it('does not assign parent id for root composables', () => {
+    clearInstances()
+
+    const useProducts = trackComposable(
+      'useProducts',
+      () => ({}),
+    )
+
+    useProducts()
+
+    const products = getInstances().find(
+      item => item.name === 'useProducts',
+    )
+
+    expect(products?.parentId).toBeNull()
+  })
+
+  it('tracks parent chain for deep dependencies', () => {
+    clearInstances()
+
+    const useStorage = trackComposable(
+      'useStorage',
+      () => ({}),
+    )
+
+    const useAuth = trackComposable(
+      'useAuth',
+      () => {
+        useStorage()
+
+        return {}
+      },
+    )
+
+    const useProducts = trackComposable(
+      'useProducts',
+      () => {
+        useAuth()
+
+        return {}
+      },
+    )
+
+    useProducts()
+
+    const products = getInstances().find(
+      item => item.name === 'useProducts',
+    )
+
+    const auth = getInstances().find(
+      item => item.name === 'useAuth',
+    )
+
+    const storage = getInstances().find(
+      item => item.name === 'useStorage',
+    )
+
+    expect(auth?.parentId).toBe(products?.id)
+
+    expect(storage?.parentId).toBe(auth?.id)
+  })
+
+  it('assigns correct parent for multiple dependency instances', () => {
+    clearInstances()
+
+    const useAuth = trackComposable(
+      'useAuth',
+      () => ({}),
+    )
+
+    const useProducts = trackComposable(
+      'useProducts',
+      () => {
+        useAuth()
+        useAuth()
+
+        return {}
+      },
+    )
+
+    useProducts()
+
+    const products = getInstances().find(
+      item => item.name === 'useProducts',
+    )
+
+    const authInstances = getInstances().filter(
+      item => item.name === 'useAuth',
+    )
+
+    expect(authInstances).toHaveLength(2)
+
+    authInstances.forEach((auth) => {
+      expect(auth.parentId).toBe(products?.id)
+    })
+  })
 })
