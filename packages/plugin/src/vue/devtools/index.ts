@@ -66,7 +66,9 @@ export function setupComposableObserverDevtools(
       api.on.getInspectorTree(
         (payload) => {
           if (payload.inspectorId === INSPECTOR_ID) {
-            payload.rootNodes = buildInspectorTree()
+            payload.rootNodes = buildInspectorTree(
+              payload.filter
+            )
           }
         },
       )
