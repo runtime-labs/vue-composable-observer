@@ -41,5 +41,7 @@ export function buildInspectorTree() {
     .map(
       instance => buildNode(instance.id, instances),
     )
-    .filter(Boolean)
+    .filter(
+      instance => instance !== null
+    )
 }
