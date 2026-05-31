@@ -51,7 +51,7 @@ export function findComposables(
 
 export function transformComposable(
   code: string,
-  options: { importPrefix: string },
+  options: { importPrefix: string } | undefined = undefined,
 ): string {
   const composables = findComposables(code)
 

@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest'
 
-import { findComposables, transformComposable } from '../src/transform'
+import { findComposables, transformComposable } from '../../src/unplugin/transform.ts'
 
 describe('findComposable', () => {
   it('finds composable declaration range', () => {
