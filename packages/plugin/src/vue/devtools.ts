@@ -1,28 +1,47 @@
-import { App } from "vue";
-import { addCustomTab, setupDevtoolsPlugin } from '@vue/devtools-api'
-import { DEVTOOLS_ROUTE } from "../constants";
+import { type App } from 'vue'
+import { setupDevtoolsPlugin } from '@vue/devtools-api'
+import { getInstances } from '@goranton/vue-composable-observer-core'
 
 export function setupComposableObserverDevtools(
-    app: App
+  app: App,
 ) {
-    setupDevtoolsPlugin(
-        {
-            id: 'composable-observer',
-            label: 'Composable Observer',
-            packageName: '@goranton/vue-composable-observer-vue',
-            homepage: 'https://github.com/goranton/vue-composable-observer',
-            app,
-        },
-        () => {}
-    )
+  setupDevtoolsPlugin(
+    {
+      id: 'composable-observer',
+      label: 'Composable Observer',
+      packageName: '@goranton/vue-composable-observer-vue',
+      homepage: 'https://github.com/goranton/vue-composable-observer',
+      app,
+    },
+    (api) => {
+      api.addInspector({
+        id: INSPECTOR_ID,
+        label: INSPECTOR_LABEL,
+        icon: 'storage',
+      })
 
-    addCustomTab({
-        name: 'composable-observer',
-        title: 'Composables',
+      api.on.getInspectorTree(
+        (payload) => {
+          if (
+            payload.inspectorId !== INSPECTOR_ID
+          ) {
+            return
+          }
 
-        view: {
-            type: 'iframe',
-            src: DEVTOOLS_ROUTE,
+          payload.rootNodes = getInstances()
+            .map(instance => ({
+              id: instance.id,
+              label: instance.name,
+            }))
         },
-    })
+      )
+    },
+  )
+
+
+  const INSPECTOR_ID =
+    'vue-composable-observer'
+
+  const INSPECTOR_LABEL =
+    'Composable Observer'
 }

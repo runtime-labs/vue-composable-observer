@@ -4,6 +4,8 @@ import './style.css'
 import App from './App.vue'
 import { ComposableObserverVuePlugin } from '@goranton/vue-composable-observer-plugin/vue'
 
-createApp(App).use(ComposableObserverVuePlugin).mount('#app')
+createApp(App)
+  .use(ComposableObserverVuePlugin)
+  .mount('#app')
 
 console.log('Vue Composable Observer version:', version)
