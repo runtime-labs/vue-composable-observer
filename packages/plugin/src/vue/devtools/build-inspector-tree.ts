@@ -31,10 +31,23 @@ function buildNode(id: string, instances: ReturnType<typeof getInstances>): Node
   } as const
 }
 
-export function buildInspectorTree() {
+export function buildInspectorTree(
+  filter?: string
+) {
   const instances = getInstances()
 
-  return instances
+  const normalizedFilter = filter?.toLowerCase().trim()
+
+const filteredInstances =
+    !normalizedFilter
+      ? instances
+      : instances.filter(instance =>
+          instance.name
+            .toLowerCase()
+            .includes(normalizedFilter),
+        )
+
+  return filteredInstances
     .filter(
       instance => !instance.parentId,
     )
