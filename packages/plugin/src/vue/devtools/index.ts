@@ -1,17 +1,24 @@
-import { nextTick, type App } from 'vue'
+import { type App } from 'vue'
 import { setupDevtoolsPlugin } from '@vue/devtools-api'
+
 import { DEVTOOLS_META } from './meta'
 import { buildInspectorState } from './build-inspector-state'
-import { subscribe } from '@goranton/vue-composable-observer-core'
-import { buildComponentTree, buildFlatTree, buildRuntimeTree } from './view'
 
-type ObserverEvent = Parameters<Parameters<typeof subscribe>[0]>[0]['type']
+import { subscribe } from '@goranton/vue-composable-observer-core'
+
+import {
+  buildComponentTree,
+  buildFlatTree,
+  buildRuntimeTree,
+} from './view'
+
+import { debounce } from './../../utils/debounce'
 
 export function setupComposableObserverDevtools(
   app: App,
 ) {
   const RUNTIME_INSPECTOR_ID =
-  'vue-composable-observer-runtime'
+    'vue-composable-observer-runtime'
 
   const COMPONENT_INSPECTOR_ID =
     'vue-composable-observer-component'
@@ -20,17 +27,29 @@ export function setupComposableObserverDevtools(
     'vue-composable-observer-flat'
 
   const INSPECTORS = [
-      RUNTIME_INSPECTOR_ID,
-      COMPONENT_INSPECTOR_ID,
-      FLAT_INSPECTOR_ID,
-  ]
+    RUNTIME_INSPECTOR_ID,
+    COMPONENT_INSPECTOR_ID,
+    FLAT_INSPECTOR_ID,
+  ] as const
 
-  function validInspector(inspectorId: string) {
-    return INSPECTORS.includes(inspectorId)
+  type InspectorId =
+    typeof INSPECTORS[number]
+
+  let activeInspectorId:
+    | InspectorId
+    | null = null
+
+  function isInspector(
+    inspectorId: string,
+  ): inspectorId is InspectorId {
+    return INSPECTORS.includes(
+      inspectorId as InspectorId,
+    )
   }
 
-
-  function buildTree(inspectorId: string) {
+  function buildTree(
+    inspectorId: InspectorId,
+  ) {
     switch (inspectorId) {
       case RUNTIME_INSPECTOR_ID:
         return buildRuntimeTree()
@@ -40,9 +59,6 @@ export function setupComposableObserverDevtools(
 
       case FLAT_INSPECTOR_ID:
         return buildFlatTree()
-
-      default:
-        return []
     }
   }
 
@@ -52,17 +68,6 @@ export function setupComposableObserverDevtools(
       app,
     },
     (api) => {
-      const stateUpdatedEvents: ObserverEvent[] = [
-        'instance:stateUpdated',
-        'instance:dependencyRegistered',
-      ]
-
-      const treeUpdatedEvents: ObserverEvent[] = [
-        'instance:cleared',
-        'instance:registered',
-        'instance:unregistered',
-      ]
-
       api.addInspector({
         id: RUNTIME_INSPECTOR_ID,
         label: 'Composables',
@@ -81,39 +86,69 @@ export function setupComposableObserverDevtools(
         icon: 'list',
       })
 
-      subscribe(async (event) => {
-        await nextTick()
-
-        if (stateUpdatedEvents.includes(event.type)) {
-          for (const inspector of INSPECTORS) {
-            api.sendInspectorState(inspector)
-          }
-
+      const refreshTree = debounce(() => {
+        if (!activeInspectorId) {
           return
         }
 
-        if (treeUpdatedEvents.includes(event.type)) {
-          for (const inspector of INSPECTORS) {
-            api.sendInspectorState(inspector)
-          }
+        api.sendInspectorTree(
+          activeInspectorId,
+        )
+      }, 50)
 
+      const refreshState = debounce(() => {
+        if (!activeInspectorId) {
           return
+        }
+
+        api.sendInspectorState(
+          activeInspectorId,
+        )
+      }, 50)
+
+      subscribe((event) => {
+        switch (event.type) {
+          case 'instance:registered':
+          case 'instance:unregistered':
+          case 'instance:cleared':
+            refreshTree()
+            break
+
+          case 'instance:stateUpdated':
+            refreshState()
+            break
         }
       })
 
-      api.on.getInspectorState(
+      api.on.getInspectorTree(
         (payload) => {
-          if (validInspector(payload.inspectorId)) {
-            payload.state = buildInspectorState(payload.nodeId)
+          if (!isInspector(payload.inspectorId)) {
+            return
           }
+
+          activeInspectorId =
+            payload.inspectorId
+
+          payload.rootNodes = buildTree(
+            payload.inspectorId,
+          )
         },
       )
 
-      api.on.getInspectorTree((payload) => {
-        payload.rootNodes = buildTree(
-          payload.inspectorId,
-        )
-      })
+      api.on.getInspectorState(
+        (payload) => {
+          if (!isInspector(payload.inspectorId)) {
+            return
+          }
+
+          activeInspectorId =
+            payload.inspectorId
+
+          payload.state = buildInspectorState(
+            payload.nodeId,
+          )
+        },
+      )
     },
   )
 }

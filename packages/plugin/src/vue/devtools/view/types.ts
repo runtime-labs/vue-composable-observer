@@ -1,4 +1,4 @@
-export type InspectorView = 
+export type InspectorView =
   | 'tree'
   | 'component'
   | 'flat'
@@ -10,8 +10,8 @@ export type Node = {
 }
 
 export interface TreeBuilder {
-    id: string
-    label: string
+  id: string
+  label: string
 
-    build(): Node[]
+  build(): Node[]
 }

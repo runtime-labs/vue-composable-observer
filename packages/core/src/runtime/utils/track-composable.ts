@@ -45,10 +45,6 @@ export function trackComposable<TArgs extends unknown[], TResult>(
       },
     )
 
-    if (isDev()) {
-      console.log(`Registered composable instance: ${runtime.instance.name} (ID: ${runtime.instance.id})`)
-    }
-
     const scope = getCurrentScope()
     const vm = getCurrentInstance()
 

@@ -1,5 +1,5 @@
-import { parse } from "@babel/parser"
-import { FoundComposable } from "./types"
+import { parse } from '@babel/parser'
+import { type FoundComposable } from './types'
 
 export function findComposables(
   code: string,
