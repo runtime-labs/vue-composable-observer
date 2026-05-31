@@ -5,7 +5,7 @@
   "type": "module",
 
   "scripts": {
-    "build": "pnpm -r build",
+    "build": "pnpm core:build && pnpm plugin:build",
 
     "core:build": "pnpm --filter @runtime-labs/observer-core build",
     "core:publish": "pnpm --filter @runtime-labs/observer-core publish",
