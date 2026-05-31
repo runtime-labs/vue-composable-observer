@@ -1,27 +1,45 @@
 import { getInstanceById, getInstances } from '@goranton/vue-composable-observer-core'
 
-function buildNode(id: string) {
+type Node = {
+  id: string
+  label: string
+  children: Node[]
+}
+
+function buildNode(id: string, instances: ReturnType<typeof getInstances>): Node | null {
   const instance = getInstanceById(id)
 
   if (!instance) {
     return null
   }
 
+  const childrenIds = instances
+    .filter((child) => child.parentId && child.parentId === id)
+    .map((child) => child.id)
+    .filter(Boolean)
+
   return {
     id: instance.id,
     label: instance.name,
-
-    children: [
-      ...(instance.dependencyIds ?? []),
-    ]
-      .map(buildNode)
-      .filter(Boolean),
-  }
+    children: childrenIds
+      .map(
+        childId => buildNode(childId, instances),
+      )
+      .filter(
+        (node) => node !== null,
+      ),
+  } as const
 }
 
 export function buildInspectorTree() {
-  return getInstances().map(instance => ({
-    id: instance.id,
-    label: instance.name,
-  }))
+  const instances = getInstances()
+
+  return instances
+    .filter(
+      instance => !instance.parentId,
+    )
+    .map(
+      instance => buildNode(instance.id, instances),
+    )
+    .filter(Boolean)
 }
