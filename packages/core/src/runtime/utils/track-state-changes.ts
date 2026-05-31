@@ -1,4 +1,9 @@
-import { isRef, watch } from 'vue'
+import {
+  isReactive,
+  isRef,
+  toValue,
+  watch,
+} from 'vue'
 
 export function trackStateChanges(
   state: unknown,
@@ -6,34 +11,48 @@ export function trackStateChanges(
 ) {
   const stops: (() => void)[] = []
 
-  function storeStop(stop: () => void) {
+  function storeStop(
+    stop: () => void,
+  ) {
     stops.push(stop)
   }
 
-  if (isRef(state)) {
-    storeStop(
-      watch(
-        state,
-        () => callback(),
-        { deep: true },
-      ),
-    )
-  }
+  function track(
+    value: unknown,
+  ) {
+    if (
+      isRef(value)
+      || isReactive(value)
+    ) {
+      storeStop(
+        watch(
+          () => toValue(value),
+          () => callback(),
+          {
+            deep: true,
+            flush: 'post',
+          },
+        ),
+      )
 
-  if (typeof state === 'object' && state !== null) {
-    for (const value of Object.values(state)) {
-      if (isRef(value)) {
-        storeStop(
-          watch(
-            value,
-            () => callback(),
-          ),
-        )
+      return
+    }
+
+    if (
+      typeof value === 'object'
+      && value !== null
+    ) {
+      for (const nested of Object.values(value)) {
+        track(nested)
       }
     }
   }
 
+  track(state)
+
   return () => {
-    stops.forEach((stop) => stop())
+    for (const stop of stops) {
+      stop()
+    }
   }
 }

@@ -1,5 +1,5 @@
 import { getInstanceById, getInstances } from '@goranton/vue-composable-observer-core'
-import { Node } from '../types'
+import { type Node } from '../types'
 
 function buildNode(id: string, instances: ReturnType<typeof getInstances>): Node | null {
   const instance = getInstanceById(id)

@@ -1,6 +1,6 @@
-import { getInstanceById, getInstances } from "@goranton/vue-composable-observer-core"
-import { Node } from "../types"
-import { formatLabel } from "./format-label"
+import { getInstanceById, type getInstances } from '@goranton/vue-composable-observer-core'
+import { type Node } from '../types'
+import { formatLabel } from './format-label'
 
 export function buildNode(id: string, instances: ReturnType<typeof getInstances>): Node | null {
   const instance = getInstanceById(id)

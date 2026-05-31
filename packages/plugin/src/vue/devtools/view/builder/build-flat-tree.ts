@@ -1,5 +1,5 @@
 import { getInstances } from '@goranton/vue-composable-observer-core'
-import { Node } from '../types'
+import { type Node } from '../types'
 import { formatLabel } from '../utils/format-label'
 
 export function buildFlatTree(): Node[] {

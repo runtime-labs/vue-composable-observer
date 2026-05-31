@@ -1,11 +1,11 @@
-import { InspectorView } from "./types"
+import { type InspectorView } from './types'
 
 let currentView: InspectorView = 'flat'
 
 export function getCurrentView() {
-    return currentView
+  return currentView
 }
 
 export function setCurrentView(view: InspectorView) {
-    currentView = view
+  currentView = view
 }
