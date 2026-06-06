@@ -13,7 +13,7 @@ describe('findComposable', () => {
     const transformed =
       transformComposable(code, 'test.js')
 
-    expect(transformed).toContain(
+    expect(transformed?.code).toContain(
       '__ob_trackComposable(\'useCounter\'',
     )
   })
@@ -29,11 +29,11 @@ export function useCounter() {
 
     const transformed = transformComposable(code, 'test.js')
 
-    expect(transformed).toContain(
+    expect(transformed?.code).toContain(
       'const count = ref(0)',
     )
 
-    expect(transformed).toContain(
+    expect(transformed?.code).toContain(
       'return { count }',
     )
   })
@@ -47,7 +47,7 @@ export function useCounter() {
 
     const transformed = transformComposable(code, 'test.js')
 
-    expect(transformed).toContain(
+    expect(transformed?.code).toContain(
       'import { trackComposable as __ob_trackComposable }',
     )
   })
@@ -66,11 +66,11 @@ export function useCounter() {
     const transformed =
       transformComposable(code, 'test.js')
 
-    expect(transformed).toContain(
+    expect(transformed?.code).toContain(
       '__ob_trackComposable(\'useAuth\'',
     )
 
-    expect(transformed).toContain(
+    expect(transformed?.code).toContain(
       '__ob_trackComposable(\'useProducts\'',
     )
   })
@@ -84,11 +84,11 @@ export async function useCounter() {
 
     const transformed = transformComposable(code, 'test.js')
 
-    expect(transformed).toContain(
+    expect(transformed?.code).toContain(
       'async function useCounter',
     )
 
-    expect(transformed).toContain(
+    expect(transformed?.code).toContain(
       'trackComposable(\'useCounter\'',
     )
   })
@@ -102,7 +102,7 @@ export function useCounter<T>() {
 
     const transformed = transformComposable(code, 'test.js')
 
-    expect(transformed).toContain(
+    expect(transformed?.code).toContain(
       'function useCounter<T>()',
     )
   })
@@ -116,7 +116,7 @@ export const useCounter = () => {
 
     const transformed = transformComposable(code, 'test.js')
 
-    expect(transformed).toContain(
+    expect(transformed?.code).toContain(
       'trackComposable(\'useCounter\'',
     )
   })

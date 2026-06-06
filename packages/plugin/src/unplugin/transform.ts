@@ -5,11 +5,11 @@ export function transformComposable(
   code: string,
   file: string,
   options: { importPrefix: string } | undefined = undefined,
-): string {
+): { code: string; map: any } | null {
   const composables = findComposables(code)
 
   if (!composables.length) {
-    return code
+    return null
   }
 
   const s = new MagicString(code)
@@ -42,5 +42,8 @@ export const ${composable.name} = ${importName}('${composable.name}', '${file}',
     )
   }
 
-  return s.toString()
+  return {
+    code: s.toString(),
+    map: s.generateMap({ hires: true, source: file, includeContent: true }),
+  }
 }
