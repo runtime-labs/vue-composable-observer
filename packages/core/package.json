@@ -18,12 +18,17 @@
   },
   "keywords": [
     "vue",
+    "vue3",
     "composable",
-    "runtime",
-    "observability",
-    "debugging",
+    "composables",
     "devtools",
-    "vue3"
+    "vue-devtools",
+    "debugging",
+    "observability",
+    "runtime",
+    "reactive",
+    "state-tracking",
+    "inspector"
   ],
   "exports": {
     ".": {

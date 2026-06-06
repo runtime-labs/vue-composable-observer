@@ -32,13 +32,18 @@
   },
   "keywords": [
     "vue",
+    "vue3",
     "composable",
-    "debugging",
+    "composables",
     "devtools",
-    "observability",
-    "runtime",
     "vue-devtools",
+    "vite",
+    "vite-plugin",
     "unplugin",
+    "debugging",
+    "observability",
+    "state-tracking",
+    "inspector",
     "dx"
   ],
   "dependencies": {
