@@ -1,5 +1,13 @@
 # @runtime-labs/composable-plugin
 
+## 1.1.1
+
+### Patch Changes
+
+- Update package READMEs with demo gif, correct API docs and full setup instructions. Expand npm keywords for better discoverability.
+- Updated dependencies
+  - @runtime-labs/observer-core@1.1.1
+
 ## 1.1.0
 
 ### Minor Changes

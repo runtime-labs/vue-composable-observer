@@ -1,6 +1,6 @@
 {
   "name": "@runtime-labs/observer-core",
-  "version": "1.1.0",
+  "version": "1.1.1",
   "description": "Runtime engine for observing Vue composables and tracking their relationships.",
   "type": "module",
   "author": {
