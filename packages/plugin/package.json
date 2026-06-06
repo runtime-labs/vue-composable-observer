@@ -47,6 +47,8 @@
     "runtime",
     "vue-devtools",
     "unplugin",
+    "nuxt",
+    "nuxt-module",
     "dx"
   ],
 

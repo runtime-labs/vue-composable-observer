@@ -71,6 +71,21 @@ export default defineConfig({
 })
 ```
 
+### Nuxt
+
+```ts
+// nuxt.config.ts
+import {
+  VueComposableObserver,
+} from '@runtime-labs/composable-plugin/unplugin'
+
+export default defineNuxtConfig({
+  modules: [
+    VueComposableObserver.nuxt(),
+  ],
+})
+```
+
 ### Vue
 
 ```ts
