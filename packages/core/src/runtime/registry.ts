@@ -1,5 +1,6 @@
 import { notifySubscribers } from './subscribers'
 import { type ComposableInstance } from './types'
+import { recordSnapshot, clearHistory, clearAllHistory } from './history'
 
 const composables = new Map<string, ComposableInstance>()
 
@@ -13,6 +14,7 @@ export function registerInstance(record: ComposableInstance) {
 
 export function unregisterInstance(id: string) {
   composables.delete(id)
+  clearHistory(id)
   notifySubscribers({
     type: 'instance:unregistered',
     instanceId: id,
@@ -25,6 +27,7 @@ export function getInstances() {
 
 export function clearInstances() {
   composables.clear()
+  clearAllHistory()
   notifySubscribers({
     type: 'instance:cleared',
   })
@@ -33,6 +36,7 @@ export function clearInstances() {
 export function updateInstanceState(id: string, state: unknown) {
   const instance = composables.get(id)
   if (instance) {
+    recordSnapshot(id, state)
     instance.state = state
     notifySubscribers({
       type: 'instance:stateUpdated',

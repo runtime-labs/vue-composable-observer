@@ -4,7 +4,6 @@ import { getCurrentComposable, runWithComposable } from '../scope'
 import { getCurrentScope, onScopeDispose, getCurrentInstance } from 'vue'
 import { createComposableRuntime } from './create-composable-runtime'
 import { trackStateChanges } from './track-state-changes'
-import { notifySubscribers } from '../subscribers'
 
 export function trackComposable<TArgs extends unknown[], TResult>(
   name: string,
@@ -37,11 +36,7 @@ export function trackComposable<TArgs extends unknown[], TResult>(
     const stopTracking = trackStateChanges(
       state,
       () => {
-        notifySubscribers({
-          type: 'instance:stateUpdated',
-          instanceId: runtime.id,
-          state,
-        })
+        runtime.updateState(state)
       },
     )
 

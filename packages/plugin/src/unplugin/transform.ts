@@ -5,7 +5,7 @@ export function transformComposable(
   code: string,
   file: string,
   options: { importPrefix: string } | undefined = undefined,
-): { code: string; map: any } | null {
+): { code: string; map: ReturnType<InstanceType<typeof MagicString>['generateMap']> } | null {
   const composables = findComposables(code)
 
   if (!composables.length) {
