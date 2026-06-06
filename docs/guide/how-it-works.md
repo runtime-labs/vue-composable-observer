@@ -96,20 +96,4 @@ Events emitted:
 
 ## Development vs production
 
-The build-time transform and runtime engine are currently active in **all environments** — including production. The only difference in production is that `isDev()` suppresses the `console.log` and `console.warn` debug messages emitted by `trackComposable`.
-
-If you want to avoid production overhead, conditionally register the Vue plugin based on your environment:
-
-```ts
-// main.ts
-const app = createApp(App)
-
-if (import.meta.env.DEV) {
-  const { ComposableObserverVuePlugin } = await import('@runtime-labs/composable-plugin/vue')
-  app.use(ComposableObserverVuePlugin)
-}
-
-app.mount('#app')
-```
-
-> Production-only opt-out support (build flag / tree-shaking) is planned for a future release.
+The plugin has no built-in production guard. It is your responsibility to register it only in development — the same pattern used by Vue DevTools, Pinia DevTools, and other ecosystem tools. See [Getting Started](/guide/getting-started) for the recommended setup.

@@ -2,7 +2,36 @@
 
 ## Does this work in production?
 
-No — and that's by design. The build-time transform only runs when `import.meta.env.DEV === true`. In production builds, composables are not wrapped and the runtime engine is never initialized. There is zero runtime cost in production.
+The plugin has no built-in dev-mode guard — it is your responsibility to register it only in development. The recommended approach for Vite:
+
+```ts
+// vite.config.ts
+import { defineConfig } from 'vite'
+import vue from '@vitejs/plugin-vue'
+import { VueComposableObserver } from '@runtime-labs/composable-plugin/unplugin'
+
+export default defineConfig(({ command }) => ({
+  plugins: [
+    vue(),
+    command === 'serve' && VueComposableObserver.vite(),
+  ],
+}))
+```
+
+```ts
+// main.ts
+import { createApp } from 'vue'
+import App from './App.vue'
+
+const app = createApp(App)
+
+if (import.meta.env.DEV) {
+  const { ComposableObserverVuePlugin } = await import('@runtime-labs/composable-plugin/vue')
+  app.use(ComposableObserverVuePlugin)
+}
+
+app.mount('#app')
+```
 
 ## Does this work with SSR / Nuxt?
 

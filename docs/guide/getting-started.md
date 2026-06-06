@@ -18,18 +18,20 @@ yarn add -D @runtime-labs/composable-plugin
 
 ### 1. Register the Vite plugin
 
+Use the function form of `defineConfig` to access `command` — it equals `'serve'` during dev and `'build'` during production.
+
 ```ts
 // vite.config.ts
 import { defineConfig } from 'vite'
 import vue from '@vitejs/plugin-vue'
 import { VueComposableObserver } from '@runtime-labs/composable-plugin/unplugin'
 
-export default defineConfig({
+export default defineConfig(({ command }) => ({
   plugins: [
     vue(),
-    VueComposableObserver.vite(),
+    command === 'serve' && VueComposableObserver.vite(),
   ],
-})
+}))
 ```
 
 ### 2. Register the Vue plugin
@@ -37,12 +39,16 @@ export default defineConfig({
 ```ts
 // main.ts
 import { createApp } from 'vue'
-import { ComposableObserverVuePlugin } from '@runtime-labs/composable-plugin/vue'
 import App from './App.vue'
 
-createApp(App)
-  .use(ComposableObserverVuePlugin)
-  .mount('#app')
+const app = createApp(App)
+
+if (import.meta.env.DEV) {
+  const { ComposableObserverVuePlugin } = await import('@runtime-labs/composable-plugin/vue')
+  app.use(ComposableObserverVuePlugin)
+}
+
+app.mount('#app')
 ```
 
 That's it. No changes to your composables are needed.

@@ -18,7 +18,7 @@ Returns a Vite plugin. Pass it to `vite.config.ts`.
 VueComposableObserver.vite()
 ```
 
-The transform runs in all environments. To limit tracking to development only, conditionally register `ComposableObserverVuePlugin` behind an `import.meta.env.DEV` check.
+The plugin has no built-in production guard — register it conditionally. See [Getting Started](/guide/getting-started) for the recommended setup.
 
 ---
 
@@ -87,22 +87,22 @@ type ObserverEvent =
 
 ### `getInstances()`
 
-Returns all currently registered composable instances.
+Returns all currently registered composable instances as an array.
 
 ```ts
 import { getInstances } from '@runtime-labs/observer-core'
 
-const instances = getInstances() // Map<string, ComposableInstance>
+const instances = getInstances() // ComposableInstance[]
 ```
 
 ### `getInstanceById(id)`
 
-Returns a single composable instance by its ID, or `undefined`.
+Returns a single composable instance by its ID, or `null` if not found.
 
 ```ts
 import { getInstanceById } from '@runtime-labs/observer-core'
 
-const instance = getInstanceById('abc-123')
+const instance = getInstanceById('abc-123') // ComposableInstance | null
 ```
 
 ### `getHistory(instanceId)`
@@ -161,7 +161,7 @@ interface ComposableInstance {
 
 ```ts
 interface StateSnapshot {
-  state: unknown
   timestamp: number
+  values: Record<string, unknown>
 }
 ```
