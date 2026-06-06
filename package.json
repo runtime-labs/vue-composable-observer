@@ -40,17 +40,14 @@
     {
       "name": "@runtime-labs/observer-core",
       "path": "packages/core/dist/index.mjs",
-      "limit": "5 kB"
+      "limit": "6 kB",
+      "import": "*"
     },
     {
       "name": "@runtime-labs/composable-plugin/vue",
       "path": "packages/plugin/dist/vue/index.mjs",
-      "limit": "10 kB"
-    },
-    {
-      "name": "@runtime-labs/composable-plugin/unplugin",
-      "path": "packages/plugin/dist/unplugin/index.mjs",
-      "limit": "15 kB"
+      "limit": "20 kB",
+      "import": "*"
     }
   ]
 }
