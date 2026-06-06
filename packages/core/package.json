@@ -1,27 +1,21 @@
 {
   "name": "@runtime-labs/observer-core",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "Runtime engine for observing Vue composables and tracking their relationships.",
   "type": "module",
-
   "author": {
     "name": "Anton Gor",
     "email": "anton-gor-dev@hotmail.com"
   },
-
   "license": "MIT",
-
   "homepage": "https://github.com/runtime-labs/vue-composable-observer",
-
   "repository": {
     "type": "git",
     "url": "git+https://github.com/runtime-labs/vue-composable-observer.git"
   },
-
   "bugs": {
     "url": "https://github.com/runtime-labs/vue-composable-observer/issues"
   },
-
   "keywords": [
     "vue",
     "composable",
@@ -31,32 +25,26 @@
     "devtools",
     "vue3"
   ],
-
   "exports": {
     ".": {
       "types": "./dist/index.d.ts",
       "import": "./dist/index.mjs"
     }
   },
-
   "files": [
     "dist"
   ],
-
   "publishConfig": {
     "access": "public"
   },
-
   "scripts": {
     "build": "unbuild",
     "dev": "unbuild --stub",
     "pack": "pnpm pack"
   },
-
   "peerDependencies": {
     "vue": "^3.5.0"
   },
-
   "devDependencies": {
     "vue": "^3.5.0"
   }

@@ -1,43 +1,35 @@
 {
   "name": "@runtime-labs/composable-plugin",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "Vue Composable Observer plugin, devtools integration and unplugin transform.",
   "type": "module",
   "license": "MIT",
-
   "author": {
     "name": "Anton Gor",
     "email": "anton-gor-dev@hotmail.com"
   },
-
   "homepage": "https://github.com/runtime-labs/vue-composable-observer",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/runtime-labs/vue-composable-observer.git"
   },
-
   "bugs": {
     "url": "https://github.com/runtime-labs/vue-composable-observer/issues"
   },
-
   "publishConfig": {
     "access": "public"
   },
-
   "files": [
     "dist"
   ],
-
   "exports": {
     "./vue": "./dist/vue/index.mjs",
     "./unplugin": "./dist/unplugin/index.mjs"
   },
-
   "scripts": {
     "build": "unbuild",
     "pack": "pnpm pack"
   },
-
   "keywords": [
     "vue",
     "composable",
@@ -49,7 +41,6 @@
     "unplugin",
     "dx"
   ],
-
   "dependencies": {
     "@babel/parser": "^7.29.7",
     "@rollup/pluginutils": "^5.4.0",
@@ -60,7 +51,6 @@
     "@vue/devtools-api": "^8.1.2",
     "@runtime-labs/observer-core": "workspace:*"
   },
-
   "peerDependencies": {
     "vue": "^3.5.0"
   }
