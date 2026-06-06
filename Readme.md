@@ -8,6 +8,8 @@
 [![Downloads](https://img.shields.io/npm/dm/@runtime-labs/composable-plugin)](https://www.npmjs.com/package/@runtime-labs/composable-plugin)
 [![License](https://img.shields.io/npm/l/@runtime-labs/composable-plugin)](./LICENSE)
 
+**[📖 Documentation](https://runtime-labs.github.io/vue-composable-observer)**
+
 </p>
 
 Observe, inspect and debug Vue composables at runtime.
