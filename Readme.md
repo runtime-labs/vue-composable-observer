@@ -17,7 +17,7 @@ Observe, inspect and debug Vue composables at runtime.
 Vue Composable Observer reveals the hidden architecture of your Vue application by visualizing composable relationships, component ownership, runtime state and dependency chains directly inside Vue DevTools.
 
 <p align="center">
-  <img src="./docs/demo.gif" alt="Vue Composable Observer Demo" />
+  <img src="./docs/public/demo.gif" alt="Vue Composable Observer Demo" />
 </p>
 
 ## Why?
