@@ -87,14 +87,13 @@ describe('state history', () => {
     const useCounter = trackComposable('useCounter', 'test.ts', () => ({ count }))
 
     const scope = effectScope()
-    let instanceId = ''
 
     scope.run(() => {
       useCounter()
     })
 
     const [instance] = getInstances()
-    instanceId = instance.id
+    const instanceId = instance.id
 
     count.value = 1
     await nextTick()
