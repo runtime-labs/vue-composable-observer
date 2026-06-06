@@ -5,5 +5,17 @@ export default defineConfig({
     include: [
       'packages/*/test/**/*.test.ts',
     ],
+    coverage: {
+      provider: 'v8',
+      include: ['packages/*/src/**/*.ts'],
+      exclude: ['**/index.ts'],
+      reporter: ['text', 'lcov', 'html'],
+      thresholds: {
+        lines: 80,
+        functions: 80,
+        branches: 70,
+        statements: 80,
+      },
+    },
   },
 })
