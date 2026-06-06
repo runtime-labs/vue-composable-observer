@@ -18,17 +18,37 @@
     "play": "pnpm build && pnpm playground:dev",
     "changeset": "changeset",
     "version-packages": "changeset version",
-    "release": "changeset publish"
+    "release": "changeset publish",
+    "size": "size-limit"
   },
   "devDependencies": {
     "@changesets/cli": "^2.31.0",
     "@eslint/js": "^10.0.1",
+    "@size-limit/preset-small-lib": "^11.0.0",
     "@stylistic/eslint-plugin": "^5.10.0",
     "eslint": "^10.4.0",
+    "size-limit": "^11.0.0",
     "typescript": "^6.0.3",
     "typescript-eslint": "^8.60.0",
     "unbuild": "^3.6.1",
     "vitest": "^4.1.7"
   },
-  "packageManager": "pnpm@11.1.2"
+  "packageManager": "pnpm@11.1.2",
+  "size-limit": [
+    {
+      "name": "@runtime-labs/observer-core",
+      "path": "packages/core/dist/index.mjs",
+      "limit": "5 kB"
+    },
+    {
+      "name": "@runtime-labs/composable-plugin/vue",
+      "path": "packages/plugin/dist/vue/index.mjs",
+      "limit": "10 kB"
+    },
+    {
+      "name": "@runtime-labs/composable-plugin/unplugin",
+      "path": "packages/plugin/dist/unplugin/index.mjs",
+      "limit": "15 kB"
+    }
+  ]
 }

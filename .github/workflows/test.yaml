@@ -35,3 +35,7 @@ jobs:
       - name: Build packages
         run: pnpm build
 
+      - name: Check bundle size
+        run: pnpm size
+        continue-on-error: true
+
