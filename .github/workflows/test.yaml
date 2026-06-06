@@ -32,11 +32,12 @@ jobs:
       - name: Run tests
         run: pnpm test:coverage
 
-      - name: Upload coverage
-        uses: codecov/codecov-action@v5
+      - name: Upload coverage report
+        uses: actions/upload-artifact@v4
         with:
-          files: ./coverage/lcov.info
-        continue-on-error: true
+          name: coverage-report
+          path: coverage/
+          retention-days: 14
 
       - name: Build packages
         run: pnpm build
