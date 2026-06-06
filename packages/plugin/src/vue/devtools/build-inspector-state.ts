@@ -1,4 +1,4 @@
-import { getInstanceById } from '@runtime-labs/observer-core'
+import { getInstanceById, getHistory } from '@runtime-labs/observer-core'
 
 export function buildInspectorState(id: string) {
   const instance = getInstanceById(id)
@@ -7,6 +7,8 @@ export function buildInspectorState(id: string) {
     .filter((depId) => typeof depId === 'string')
     .map((depId) => getInstanceById(depId))
     .filter((dep) => dep !== null)
+
+  const history = getHistory(id)
 
   return {
     General: [
@@ -27,6 +29,10 @@ export function buildInspectorState(id: string) {
     Dependencies: deps.map((dep) => ({
       key: dep.id,
       value: dep.name,
+    })),
+    'State History': history.map((snapshot, index) => ({
+      key: `#${index + 1}  ${new Date(snapshot.timestamp).toLocaleTimeString()}`,
+      value: snapshot.values,
     })),
   }
 }
