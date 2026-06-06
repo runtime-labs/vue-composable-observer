@@ -41,3 +41,4 @@ playground/dist
 
 # devcontainer
 .devcontainer/.cache
+memory/
