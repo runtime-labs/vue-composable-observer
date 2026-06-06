@@ -15,6 +15,7 @@
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",
     "test": "vitest run",
+    "test:coverage": "vitest run --coverage",
     "play": "pnpm build && pnpm playground:dev",
     "changeset": "changeset",
     "version-packages": "changeset version",
@@ -28,6 +29,7 @@
     "typescript": "^6.0.3",
     "typescript-eslint": "^8.60.0",
     "unbuild": "^3.6.1",
+    "@vitest/coverage-v8": "^4.1.7",
     "vitest": "^4.1.7"
   },
   "packageManager": "pnpm@11.1.2"

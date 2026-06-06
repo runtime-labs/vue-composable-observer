@@ -32,6 +32,12 @@ jobs:
       - name: Run tests
         run: pnpm test
 
+      - name: Upload coverage
+        uses: codecov/codecov-action@v5
+        with:
+          files: ./coverage/lcov.info
+        continue-on-error: true
+
       - name: Build packages
         run: pnpm build
 
