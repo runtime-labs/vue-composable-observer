@@ -18,13 +18,13 @@ export function setupComposableObserverDevtools(
   app: App,
 ) {
   const RUNTIME_INSPECTOR_ID =
-    '@runtime-labs/composable-runtime'
+    'runtime-labs-composable-runtime'
 
   const COMPONENT_INSPECTOR_ID =
-    '@runtime-labs/composable-component'
+    'runtime-labs-composable-component'
 
   const FLAT_INSPECTOR_ID =
-    '@runtime-labs/composable-flat'
+    'runtime-labs-composable-flat'
 
   const INSPECTORS = [
     RUNTIME_INSPECTOR_ID,
