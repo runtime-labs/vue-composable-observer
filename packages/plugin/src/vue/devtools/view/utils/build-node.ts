@@ -1,6 +1,6 @@
 import { getInstanceById, type getInstances } from '@runtime-labs/observer-core'
 import { type Node } from '../types'
-import { formatLabel } from './format-label'
+import { fileTag } from './build-tags'
 
 export function buildNode(id: string, instances: ReturnType<typeof getInstances>): Node | null {
   const instance = getInstanceById(id)
@@ -16,7 +16,8 @@ export function buildNode(id: string, instances: ReturnType<typeof getInstances>
 
   return {
     id: instance.id,
-    label: formatLabel(instance.name, instance.file),
+    label: instance.name,
+    tags: fileTag(instance.file),
     children: childrenIds
       .map(
         childId => buildNode(childId, instances),

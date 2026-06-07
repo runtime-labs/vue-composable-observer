@@ -1,6 +1,6 @@
 import { getInstances } from '@runtime-labs/observer-core'
 import { type Node } from '../types'
-import { formatLabel } from '../utils/format-label'
+import { countTag } from '../utils/build-tags'
 
 export function buildFlatTree(): Node[] {
   const instances = getInstances()
@@ -19,7 +19,8 @@ export function buildFlatTree(): Node[] {
 
   return [...groups.entries()].map(([name, instances]) => ({
     id: name,
-    label: formatLabel(name, String(instances.length)),
+    label: name,
+    tags: countTag(instances.length),
     children: instances.map(instance => ({
       id: instance.id,
       label: instance.file,
