@@ -3,6 +3,7 @@ import { setupDevtoolsPlugin } from '@vue/devtools-api'
 
 import { DEVTOOLS_META } from './meta'
 import { buildInspectorState } from './build-inspector-state'
+import { COMPONENTS_INSPECTOR_ID, buildComponentComposablesState } from './build-component-composables-state'
 
 import { subscribe } from '@runtime-labs/observer-core'
 
@@ -110,16 +111,24 @@ export function setupComposableObserverDevtools(
         )
       }, 50)
 
+      const refreshComponentsState = debounce(() => {
+        api.sendInspectorState(
+          COMPONENTS_INSPECTOR_ID,
+        )
+      }, 50)
+
       subscribe((event) => {
         switch (event.type) {
           case 'instance:registered':
           case 'instance:unregistered':
           case 'instance:cleared':
             refreshTree()
+            refreshComponentsState()
             break
 
           case 'instance:stateUpdated':
             refreshState()
+            refreshComponentsState()
             break
         }
       })
@@ -144,7 +153,29 @@ export function setupComposableObserverDevtools(
       )
 
       api.on.getInspectorState(
-        (payload) => {
+        async (payload) => {
+          if (payload.inspectorId === COMPONENTS_INSPECTOR_ID) {
+            // The core "components" plugin's own getInspectorState handler
+            // overwrites `payload.state` wholesale (`payload.state = result`)
+            // rather than merging. Yielding a microtask here lets that
+            // synchronous handler finish first, so our merge lands on top of
+            // its result instead of being clobbered by it.
+            await Promise.resolve()
+
+            const composablesEntries = buildComponentComposablesState(
+              payload.nodeId,
+            )
+
+            if (composablesEntries && payload.state) {
+              payload.state.state = [
+                ...payload.state.state,
+                ...composablesEntries,
+              ]
+            }
+
+            return
+          }
+
           if (!isInspector(payload.inspectorId)) {
             return
           }
