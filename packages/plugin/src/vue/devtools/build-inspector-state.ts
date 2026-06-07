@@ -1,4 +1,5 @@
 import { getInstanceById, getHistory } from '@runtime-labs/observer-core'
+import { diffSnapshotValues } from './diff-snapshot-values'
 
 export function buildInspectorState(id: string) {
   const instance = getInstanceById(id)
@@ -32,7 +33,7 @@ export function buildInspectorState(id: string) {
     })),
     'State History': history.map((snapshot, index) => ({
       key: `#${index + 1}  ${new Date(snapshot.timestamp).toLocaleTimeString()}`,
-      value: snapshot.values,
+      value: diffSnapshotValues(history[index + 1]?.values ?? {}, snapshot.values),
     })),
   }
 }
