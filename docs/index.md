@@ -31,7 +31,7 @@ features:
     details: Watch reactive state change in real time. Every ref and reactive object is tracked automatically.
   - icon: 🛠
     title: Vue DevTools integration
-    details: Three dedicated inspectors — Runtime, Component, and Flat — built right into your existing DevTools workflow.
+    details: Three dedicated inspectors — Runtime, Component, and Flat — plus a Composables group injected straight into the standard Components panel.
   - icon: 🧹
     title: Opt-out in production
     details: Conditionally register the Vue plugin behind import.meta.env.DEV to skip tracking in production builds.

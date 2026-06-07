@@ -57,7 +57,7 @@ That's it. No changes to your composables are needed.
 
 Start your application in development mode and open **Vue DevTools**.
 
-A new **Composable Observer** section will appear with three views:
+A new **Composable Observer** section will appear with three views, and composables also surface directly inside the standard **Components** panel:
 
 ### Runtime View
 
@@ -83,6 +83,13 @@ ProductPage
 ### Flat View
 
 A searchable flat list of all tracked composable instances with their current state.
+
+### Components panel integration
+
+You don't even need to switch tabs to see what a component is using: select any
+component in the standard **Components** inspector, and a **Composables** group
+appears in its State view — right alongside `props`, `setup`, and `data` —
+listing each composable the component calls directly and its current state.
 
 ## Example
 

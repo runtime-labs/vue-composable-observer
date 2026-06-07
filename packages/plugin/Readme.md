@@ -17,6 +17,7 @@ Observe, inspect and debug Vue composables at runtime — without touching your 
 
 - **Instruments your composables at build time** — no manual `trackComposable()` calls needed
 - **Shows composable hierarchy** in Vue DevTools — who calls whom, which component owns what
+- **Surfaces composables in the standard Components panel** — select a component and see the composables it uses right alongside its `props` and `setup` state
 - **Tracks reactive state in real time** — every `ref` and `reactive` object is watched automatically
 - **Keeps a state history** — see how state changed over time, directly in DevTools
 

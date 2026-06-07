@@ -120,6 +120,12 @@ ProductPage
 
 Provides a searchable list of all tracked composables.
 
+### Components panel integration
+
+Composables also surface directly in the standard **Components** inspector — select
+any component and a **Composables** group appears in its State view, listing each
+composable it calls and its current state alongside `props`, `setup`, and `data`.
+
 ## Example
 
 Given the following composable:
