@@ -27,8 +27,8 @@ export function buildInspectorState(id: string) {
       key, value,
     })),
     Dependencies: deps.map((dep) => ({
-      key: dep.id,
-      value: dep.name,
+      key: dep.name,
+      value: dep.id,
     })),
     'State History': history.map((snapshot, index) => ({
       key: `#${index + 1}  ${new Date(snapshot.timestamp).toLocaleTimeString()}`,
