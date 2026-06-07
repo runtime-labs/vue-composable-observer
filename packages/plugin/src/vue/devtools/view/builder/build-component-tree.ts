@@ -1,7 +1,7 @@
 import { getInstances } from '@runtime-labs/observer-core'
 
 import { buildNode } from '../utils/build-node'
-import { formatLabel } from '../utils/format-label'
+import { fileTag } from '../utils/build-tags'
 
 export function buildComponentTree() {
   const instances = getInstances()
@@ -29,7 +29,8 @@ export function buildComponentTree() {
   return [...components.values()].map((component) => ({
     id: `component:${component.uid}`,
 
-    label: formatLabel(component.name, component.file),
+    label: component.name,
+    tags: fileTag(component.file),
 
     children: instances
       .filter(

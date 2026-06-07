@@ -3,9 +3,17 @@ export type InspectorView =
   | 'component'
   | 'flat'
 
+export type Tag = {
+  label: string
+  textColor: number
+  backgroundColor: number
+  tooltip?: string
+}
+
 export type Node = {
   id: string
   label: string
+  tags?: Tag[]
   children: Node[]
 }
 
