@@ -6,7 +6,7 @@ describe('diffSnapshotValues', () => {
     expect(
       diffSnapshotValues({ count: 1, name: 'a' }, { count: 2, name: 'a' }),
     ).toEqual({
-      count: { from: 1, to: 2 },
+      count: '1 → 2',
     })
   })
 
@@ -14,14 +14,33 @@ describe('diffSnapshotValues', () => {
     expect(
       diffSnapshotValues({ count: 1 }, { name: 'a' }),
     ).toEqual({
-      count: { from: 1, to: undefined },
-      name: { from: undefined, to: 'a' },
+      count: '1 → undefined',
+      name: 'undefined → a',
     })
   })
 
-  it('treats deeply equal objects as unchanged', () => {
+  it('drills into nested objects and reports only the changed leaf path', () => {
     expect(
-      diffSnapshotValues({ list: [1, 2] }, { list: [1, 2] }),
+      diffSnapshotValues(
+        { user: { profile: { name: 'a', age: 30 } } },
+        { user: { profile: { name: 'b', age: 30 } } },
+      ),
+    ).toEqual({
+      'user.profile.name': 'a → b',
+    })
+  })
+
+  it('treats arrays as leaf values rather than recursing by index', () => {
+    expect(
+      diffSnapshotValues({ list: [1, 2] }, { list: [1, 2, 3] }),
+    ).toEqual({
+      list: '[1,2] → [1,2,3]',
+    })
+  })
+
+  it('treats deeply equal values as unchanged', () => {
+    expect(
+      diffSnapshotValues({ list: [1, 2], user: { name: 'a' } }, { list: [1, 2], user: { name: 'a' } }),
     ).toEqual({})
   })
 

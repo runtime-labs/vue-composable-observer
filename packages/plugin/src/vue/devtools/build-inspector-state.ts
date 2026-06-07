@@ -33,10 +33,7 @@ export function buildInspectorState(id: string) {
     })),
     'State History': history.map((snapshot, index) => ({
       key: `#${index + 1}  ${new Date(snapshot.timestamp).toLocaleTimeString()}`,
-      value: {
-        changed: diffSnapshotValues(history[index + 1]?.values ?? {}, snapshot.values),
-        snapshot: snapshot.values,
-      },
+      value: diffSnapshotValues(history[index + 1]?.values ?? {}, snapshot.values),
     })),
   }
 }
