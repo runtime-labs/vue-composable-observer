@@ -17,6 +17,7 @@ export function fileTag(file?: string): Tag[] {
 
   return [{
     label: file.split('/').pop() ?? file,
+    tooltip: file,
     ...FILE_TAG_COLORS,
   }]
 }
