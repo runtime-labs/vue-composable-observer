@@ -10,6 +10,7 @@ import {
   buildComponentTree,
   buildFlatTree,
   buildRuntimeTree,
+  filterTree,
 } from './view'
 
 import { debounce } from './../../utils/debounce'
@@ -72,18 +73,21 @@ export function setupComposableObserverDevtools(
         id: RUNTIME_INSPECTOR_ID,
         label: 'Composables',
         icon: 'storage',
+        treeFilterPlaceholder: 'Search composables',
       })
 
       api.addInspector({
         id: COMPONENT_INSPECTOR_ID,
         label: 'Composables by Component',
         icon: 'account_tree',
+        treeFilterPlaceholder: 'Search components or composables',
       })
 
       api.addInspector({
         id: FLAT_INSPECTOR_ID,
         label: 'Composables Flat',
         icon: 'list',
+        treeFilterPlaceholder: 'Search composables',
       })
 
       const refreshTree = debounce(() => {
@@ -129,9 +133,13 @@ export function setupComposableObserverDevtools(
           activeInspectorId =
             payload.inspectorId
 
-          payload.rootNodes = buildTree(
+          const tree = buildTree(
             payload.inspectorId,
           )
+
+          payload.rootNodes = payload.filter
+            ? filterTree(tree, payload.filter)
+            : tree
         },
       )
 
