@@ -1,5 +1,11 @@
 # @runtime-labs/composable-plugin
 
+## 1.1.2
+
+### Patch Changes
+
+- Fix devtools inspector IDs format and add debug logging for event tracking.
+
 ## 1.1.1
 
 ### Patch Changes
